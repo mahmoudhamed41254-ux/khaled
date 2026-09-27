@@ -1008,13 +1008,30 @@
             data.forEach(o => {
                 container.innerHTML += `
                     <div style="background:var(--bg-color); border:1px solid var(--border-color); padding:1rem; border-radius:10px; margin-bottom:1rem;">
-                        <strong>رقم الطلب: ${o.order_number}</strong> | الحالة: ${o.status}<br>
+                        <strong>رقم الطلب: ${o.order_number}</strong> | الحالة: 
+                        <select onchange="updateOrderStatus('${o.id}', this.value)" style="padding: 5px; border-radius: 5px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main);">
+                            <option value="قيد المعالجة (بيتجهز)" ${o.status.includes('بيتجهز') || o.status.includes('قيد المعالجة') ? 'selected' : ''}>بيجهز</option>
+                            <option value="تم التأكيد" ${o.status === 'تم التأكيد' ? 'selected' : ''}>تم التأكيد</option>
+                            <option value="تم الشحن" ${o.status === 'تم الشحن' ? 'selected' : ''}>تم الشحن</option>
+                            <option value="ملغي" ${o.status === 'ملغي' ? 'selected' : ''}>ملغي</option>
+                        </select><br>
                         <strong>العميل:</strong> ${o.client_name} (${o.client_phone})<br>
                         <strong>الطلب:</strong> ${o.product_name} - <strong>الإجمالي:</strong> ${o.product_price} ج.م<br>
                         <strong>العنوان / الدفع:</strong> ${o.client_address} | ${o.payment_method}
                     </div>
                 `;
             });
+        }
+
+        async function updateOrderStatus(orderId, newStatus) {
+            if (prompt("أدخل كلمة المرور لتأكيد التعديل:") !== ADMIN_PASSWORD) { alert("كلمة المرور خطأ"); return; }
+            const { error } = await _supabase.from('orders').update({ status: newStatus }).eq('id', orderId);
+            if (error) {
+                alert('حدث خطأ أثناء تحديث الحالة: ' + error.message);
+            } else {
+                alert('تم تحديث حالة الطلب بنجاح!');
+                fetchOrders();
+            }
         }
 
         async function editMedicine(id, name, price, oldPrice, desc) {
@@ -1049,9 +1066,14 @@
             await _supabase.storage.from('medicines-images').upload(fileName, file);
             const { data: pub } = _supabase.storage.from('medicines-images').getPublicUrl(fileName);
 
-            await _supabase.from('medicines').insert([{
+            const { data, error } = await _supabase.from('medicines').insert([{
                 name, category, price: parseFloat(price), old_price: oldPrice ? parseFloat(oldPrice) : null, description: desc, image_url: pub.publicUrl
             }]);
+
+            if (error) {
+                alert("فشل في إضافة المنتج لقاعدة البيانات: " + error.message + "\n(يرجى مراجعة صلاحيات RLS في Supabase)");
+                return;
+            }
 
             closeModal('addMedicineModal');
             this.reset();
@@ -1059,7 +1081,6 @@
             alert("تم إضافة المنتج بنجاح!");
         });
 
-        // تشغيل قاعدة البيانات للتأكد من وجود عمود التصنيف
         fetchMedicines();
     </script>
 </body>
