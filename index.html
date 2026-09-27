@@ -467,7 +467,7 @@
 
         .btn-details:hover { background: var(--primary-dark); }
 
-        /* تصميم كارت الطلب الجديد (مطابق للصورة) */
+        /* تصميم كارت الطلب الجديد */
         .custom-order-card {
             background-color: #0b0f19;
             border: 1px solid #1e293b;
@@ -1130,9 +1130,13 @@
             fetchMedicines();
         }
 
+        // كود معالجة وإضافة الدواء مع إظهار الأخطاء إن وجدت
         document.getElementById('medicineForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            if (document.getElementById('adminPassword').value !== ADMIN_PASSWORD) { alert("كلمة المرور خطأ"); return; }
+            if (document.getElementById('adminPassword').value !== ADMIN_PASSWORD) { 
+                alert("كلمة المرور خطأ"); 
+                return; 
+            }
             
             const name = document.getElementById('medName').value;
             const category = document.getElementById('medCategory').value;
@@ -1141,21 +1145,46 @@
             const desc = document.getElementById('medDesc').value;
             const file = document.getElementById('medImage').files[0];
 
-            const fileName = `${Date.now()}_${file.name}`;
-            await _supabase.storage.from('medicines-images').upload(fileName, file);
-            const { data: pub } = _supabase.storage.from('medicines-images').getPublicUrl(fileName);
+            try {
+                const fileName = `${Date.now()}_${file.name}`;
+                
+                const { data: uploadData, error: uploadError } = await _supabase.storage
+                    .from('medicines-images')
+                    .upload(fileName, file);
 
-            await _supabase.from('medicines').insert([{
-                name, category, price: parseFloat(price), old_price: oldPrice ? parseFloat(oldPrice) : null, description: desc, image_url: pub.publicUrl
-            }]);
+                if (uploadError) {
+                    alert("خطأ في رفع الصورة: " + uploadError.message);
+                    return;
+                }
 
-            closeModal('addMedicineModal');
-            this.reset();
-            fetchMedicines();
-            alert("تم إضافة المنتج بنجاح!");
+                const { data: pub } = _supabase.storage.from('medicines-images').getPublicUrl(fileName);
+
+                const { error: insertError } = await _supabase.from('medicines').insert([{
+                    name, 
+                    category, 
+                    price: parseFloat(price), 
+                    old_price: oldPrice ? parseFloat(oldPrice) : null, 
+                    description: desc, 
+                    image_url: pub.publicUrl
+                }]);
+
+                if (insertError) {
+                    alert("خطأ في حفظ الدواء في القاعدة: " + insertError.message);
+                    return;
+                }
+
+                closeModal('addMedicineModal');
+                this.reset();
+                document.getElementById('uploadText').textContent = 'اضغط هنا لرفع الصورة';
+                fetchMedicines();
+                alert("✅ تم إضافة المنتج بنجاح!");
+
+            } catch (err) {
+                alert("حدث خطأ غير متوقع: " + err.message);
+            }
         });
 
-        // تشغيل قاعدة البيانات للتأكد من جلب الأدوية
+        // تشغيل الجلب عند فتح الصفحة
         fetchMedicines();
     </script>
 </body>
