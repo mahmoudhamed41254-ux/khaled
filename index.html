@@ -45,11 +45,16 @@
             position: relative;
         }
 
-        /* زر طلبات العملاء فوق على اليمين */
-        .admin-orders-btn {
+        /* أزرار التحكم فوق على اليمين والشمال أو بجانب بعض */
+        .header-actions {
             position: absolute;
             top: 20px;
             right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .header-btn {
             background: rgba(255, 255, 255, 0.2);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.4);
@@ -65,7 +70,7 @@
             transition: 0.3s;
         }
 
-        .admin-orders-btn:hover {
+        .header-btn:hover {
             background: white;
             color: var(--primary-dark);
         }
@@ -90,19 +95,14 @@
             padding: 0 1rem;
             flex: 1;
             width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
         }
 
         @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            .admin-orders-btn {
+            .header-actions {
                 position: static;
-                margin: 1rem auto 0 auto;
-                width: fit-content;
+                justify-content: center;
+                margin-top: 1rem;
+                flex-wrap: wrap;
             }
         }
 
@@ -111,7 +111,7 @@
             border-radius: 16px;
             padding: 2rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            height: fit-content;
+            width: 100%;
         }
 
         .card h2 {
@@ -530,18 +530,41 @@
 <body>
 
     <header>
-        <!-- زر طلبات العملاء فوق على اليمين -->
-        <button class="admin-orders-btn" onclick="checkAdminForOrders()">
-            <i class="fa-solid fa-clipboard-list"></i> طلبات العملاء
-        </button>
+        <!-- الأزرار التحكمية في الأعلى -->
+        <div class="header-actions">
+            <button class="header-btn" onclick="checkAdminForAdd()">
+                <i class="fa-solid fa-plus-circle"></i> إضافة دواء
+            </button>
+            <button class="header-btn" onclick="checkAdminForOrders()">
+                <i class="fa-solid fa-clipboard-list"></i> طلبات العملاء
+            </button>
+        </div>
         <h1><i class="fa-solid fa-house-medical"></i> صيدلية خالد محمد رجب</h1>
         <p>خدمتكم الطبية المتميزة على مدار الساعة - أدوية وعلاجات متكاملة</p>
     </header>
 
     <div class="container">
-        <!-- نموذج إضافة دواء جديد محمي بكلمة مرور -->
+        <!-- قسم عرض الأدوية المضافة يظهر أولاً وبشكل رئيسي -->
         <div class="card">
-            <h2><i class="fa-solid fa-capsules"></i> إضافة دواء جديد</h2>
+            <h2><i class="fa-solid fa-pills"></i> أدوية الصيدلية المتاحة</h2>
+            <div id="medicinesContainer" class="medicines-grid">
+                <div class="empty-state">
+                    <i class="fa-solid fa-prescription-bottle-medical"></i>
+                    <p>جاري تحميل الأدوية...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة دواء جديد (Modal) -->
+    <div id="addMedicineModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('addMedicineModal')">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h2 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--primary-dark);">
+                <i class="fa-solid fa-capsules"></i> إضافة دواء جديد
+            </h2>
             <form id="medicineForm">
                 <div class="form-group">
                     <label for="medName">اسم الدواء</label>
@@ -573,20 +596,9 @@
                 </div>
 
                 <button type="submit" id="submitBtn" class="btn-submit">
-                    <i class="fa-solid fa-plus-circle"></i> إضافة للقائمة
+                    <i class="fa-solid fa-plus-circle"></i> حفظ وإضافة للقائمة
                 </button>
             </form>
-        </div>
-
-        <!-- قسم عرض الأدوية المضافة -->
-        <div class="card">
-            <h2><i class="fa-solid fa-pills"></i> أدوية الصيدلية المتاحة</h2>
-            <div id="medicinesContainer" class="medicines-grid">
-                <div class="empty-state">
-                    <i class="fa-solid fa-prescription-bottle-medical"></i>
-                    <p>جاري تحميل الأدوية...</p>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -704,7 +716,7 @@
                 medicinesContainer.innerHTML = `
                     <div class="empty-state">
                         <i class="fa-solid fa-prescription-bottle-medical"></i>
-                        <p>لا توجد أدوية مضافة حالياً. ابدأ بإضافة أول دواء!</p>
+                        <p>لا توجد أدوية مضافة حالياً. اضغط على زر "إضافة دواء" في الأعلى لإضافة أول منتج!</p>
                     </div>
                 `;
                 return;
@@ -784,7 +796,21 @@
             document.getElementById(modalId).style.display = 'none';
         }
 
-        // حفظ الطلب في جدول "orders" فور الضغط على تأكيد الطلب ودون فتح واتساب
+        // التحقق من كلمة المرور لفتح نافذة إضافة دواء
+        function checkAdminForAdd() {
+            const password = prompt("أدخل كلمة مرور المدير لإضافة دواء جديد:");
+            if (password === null) return;
+            if (password !== ADMIN_PASSWORD) {
+                alert("كلمة المرور غير صحيحة!");
+                return;
+            }
+            document.getElementById('medicineForm').reset();
+            uploadText.textContent = 'اضغط هنا لرفع صورة الدواء';
+            uploadText.style.color = 'var(--text-muted)';
+            document.getElementById('addMedicineModal').style.display = 'flex';
+        }
+
+        // حفظ الطلب في جدول "orders" فور الضغط على تأكيد الطلب
         async function submitOrder(e) {
             e.preventDefault();
             if (!selectedProductForBuy) return;
@@ -794,7 +820,6 @@
             const clientAddress = document.getElementById('clientAddress').value;
             const paymentMethod = document.getElementById('paymentMethod').value;
             
-            // توليد رقم طلب عشوائي ومميز
             const orderNumber = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
 
             const { error } = await _supabase.from('orders').insert([{
@@ -955,15 +980,15 @@
                 if (insertError) throw insertError;
 
                 form.reset();
-                uploadText.textContent = 'اضغط هنا لرفع صورة الدواء';
-                uploadText.style.color = 'var(--text-muted)';
+                closeModal('addMedicineModal');
                 fetchMedicines();
+                alert('تم إضافة الدواء بنجاح للقائمة!');
 
             } catch (error) {
                 alert('حدث خطأ أثناء الإضافة: ' + error.message);
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fa-solid fa-plus-circle"></i> إضافة للقائمة';
+                submitBtn.innerHTML = '<i class="fa-solid fa-plus-circle"></i> حفظ وإضافة للقائمة';
             }
         });
 
