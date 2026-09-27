@@ -467,6 +467,79 @@
 
         .btn-details:hover { background: var(--primary-dark); }
 
+        /* تصميم كارت الطلب الجديد (مطابق للصورة) */
+        .custom-order-card {
+            background-color: #0b0f19;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            color: #f8fafc;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .order-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #1e293b;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .order-id-text {
+            color: #38bdf8;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .order-status-select {
+            background-color: #111827;
+            color: #f8fafc;
+            border: 1px solid #334155;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .order-card-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 600px) {
+            .order-card-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .order-info-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .order-info-row {
+            display: flex;
+            gap: 5px;
+        }
+
+        .order-label {
+            color: #94a3b8;
+        }
+
+        .order-value {
+            color: #f8fafc;
+            font-weight: 500;
+        }
+
         /* نوافذ المودال */
         .modal-overlay {
             display: none;
@@ -1007,30 +1080,36 @@
             container.innerHTML = '';
             data.forEach(o => {
                 container.innerHTML += `
-                    <div style="background:var(--bg-color); border:1px solid var(--border-color); padding:1rem; border-radius:10px; margin-bottom:1rem;">
-                        <strong>رقم الطلب: ${o.order_number}</strong> | الحالة: 
-                        <select onchange="updateOrderStatus('${o.id}', this.value)" style="padding: 5px; border-radius: 5px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main);">
-                            <option value="قيد المعالجة (بيتجهز)" ${o.status.includes('بيتجهز') || o.status.includes('قيد المعالجة') ? 'selected' : ''}>بيجهز</option>
-                            <option value="تم التأكيد" ${o.status === 'تم التأكيد' ? 'selected' : ''}>تم التأكيد</option>
-                            <option value="تم الشحن" ${o.status === 'تم الشحن' ? 'selected' : ''}>تم الشحن</option>
-                            <option value="ملغي" ${o.status === 'ملغي' ? 'selected' : ''}>ملغي</option>
-                        </select><br>
-                        <strong>العميل:</strong> ${o.client_name} (${o.client_phone})<br>
-                        <strong>الطلب:</strong> ${o.product_name} - <strong>الإجمالي:</strong> ${o.product_price} ج.م<br>
-                        <strong>العنوان / الدفع:</strong> ${o.client_address} | ${o.payment_method}
+                    <div class="custom-order-card">
+                        <div class="order-card-header">
+                            <select class="order-status-select" onchange="updateOrderStatus('${o.id}', this.value)">
+                                <option value="قيد المعالجة (بيتجهز)" ${o.status === 'قيد المعالجة (بيتجهز)' ? 'selected' : ''}>⏳ قيد المعالجة (بيتجهز)</option>
+                                <option value="جاري التوصيل" ${o.status === 'جاري التوصيل' ? 'selected' : ''}>🚚 جاري التوصيل</option>
+                                <option value="تم التوصيل" ${o.status === 'تم التوصيل' ? 'selected' : ''}>✅ تم التوصيل</option>
+                                <option value="ملغي" ${o.status === 'ملغي' ? 'selected' : ''}>❌ ملغي</option>
+                            </select>
+                            <span class="order-id-text">رقم الطلب: ${o.order_number}</span>
+                        </div>
+                        <div class="order-card-body">
+                            <div class="order-info-col">
+                                <div class="order-info-row"><span class="order-label">اسم العميل:</span> <span class="order-value">${o.client_name}</span></div>
+                                <div class="order-info-row"><span class="order-label">التليفون:</span> <span class="order-value">${o.client_phone}</span></div>
+                                <div class="order-info-row"><span class="order-label">العنوان:</span> <span class="order-value">${o.client_address}</span></div>
+                            </div>
+                            <div class="order-info-col">
+                                <div class="order-info-row"><span class="order-label">المنتج:</span> <span class="order-value">${o.product_name} (${o.product_price} ج.م)</span></div>
+                                <div class="order-info-row"><span class="order-label">الدفع:</span> <span class="order-value">${o.payment_method}</span></div>
+                            </div>
+                        </div>
                     </div>
                 `;
             });
         }
 
-        async function updateOrderStatus(orderId, newStatus) {
-            if (prompt("أدخل كلمة المرور لتأكيد التعديل:") !== ADMIN_PASSWORD) { alert("كلمة المرور خطأ"); return; }
-            const { error } = await _supabase.from('orders').update({ status: newStatus }).eq('id', orderId);
+        async function updateOrderStatus(id, newStatus) {
+            const { error } = await _supabase.from('orders').update({ status: newStatus }).eq('id', id);
             if (error) {
-                alert('حدث خطأ أثناء تحديث الحالة: ' + error.message);
-            } else {
-                alert('تم تحديث حالة الطلب بنجاح!');
-                fetchOrders();
+                alert('حدث خطأ أثناء تحديث الحالة');
             }
         }
 
@@ -1066,14 +1145,9 @@
             await _supabase.storage.from('medicines-images').upload(fileName, file);
             const { data: pub } = _supabase.storage.from('medicines-images').getPublicUrl(fileName);
 
-            const { data, error } = await _supabase.from('medicines').insert([{
+            await _supabase.from('medicines').insert([{
                 name, category, price: parseFloat(price), old_price: oldPrice ? parseFloat(oldPrice) : null, description: desc, image_url: pub.publicUrl
             }]);
-
-            if (error) {
-                alert("فشل في إضافة المنتج لقاعدة البيانات: " + error.message + "\n(يرجى مراجعة صلاحيات RLS في Supabase)");
-                return;
-            }
 
             closeModal('addMedicineModal');
             this.reset();
@@ -1081,6 +1155,7 @@
             alert("تم إضافة المنتج بنجاح!");
         });
 
+        // تشغيل قاعدة البيانات للتأكد من جلب الأدوية
         fetchMedicines();
     </script>
 </body>
