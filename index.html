@@ -45,7 +45,6 @@
             position: relative;
         }
 
-        /* أزرار التحكم فوق على اليمين والشمال أو بجانب بعض */
         .header-actions {
             position: absolute;
             top: 20px;
@@ -222,10 +221,31 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
         }
 
-        .options-menu-container {
+        /* شارة "عرض خاص" الدائرية في أعلى الشمال */
+        .sale-badge {
             position: absolute;
             top: 10px;
             left: 10px;
+            background: #ef4444;
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+            z-index: 5;
+            line-height: 1.1;
+        }
+
+        .options-menu-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
             z-index: 10;
         }
 
@@ -252,7 +272,7 @@
         .dropdown-menu {
             display: none;
             position: absolute;
-            left: 0;
+            right: 0;
             top: 38px;
             background: white;
             border: 1px solid #e2e8f0;
@@ -301,7 +321,7 @@
             padding: 1rem;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.35rem;
             flex: 1;
         }
 
@@ -311,10 +331,37 @@
             color: var(--text-main);
         }
 
+        /* الوصف بخط صغير وشفاف تحت الاسم */
+        .medicine-desc-preview {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            opacity: 0.85;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 0.2rem;
+        }
+
+        /* تنسيق السعر قبل وبعد */
+        .price-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 0.2rem;
+        }
+
         .medicine-price {
             color: var(--accent);
             font-weight: 900;
             font-size: 1.15rem;
+        }
+
+        .old-price {
+            color: #94a3b8;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
         .card-actions {
@@ -460,7 +507,6 @@
             margin-bottom: 1rem;
         }
 
-        /* كارد الطلب داخل لوحة الطلبات */
         .order-item-card {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
@@ -530,7 +576,6 @@
 <body>
 
     <header>
-        <!-- الأزرار التحكمية في الأعلى -->
         <div class="header-actions">
             <button class="header-btn" onclick="checkAdminForAdd()">
                 <i class="fa-solid fa-plus-circle"></i> إضافة دواء
@@ -544,7 +589,6 @@
     </header>
 
     <div class="container">
-        <!-- قسم عرض الأدوية المضافة يظهر أولاً وبشكل رئيسي -->
         <div class="card">
             <h2><i class="fa-solid fa-pills"></i> أدوية الصيدلية المتاحة</h2>
             <div id="medicinesContainer" class="medicines-grid">
@@ -556,7 +600,7 @@
         </div>
     </div>
 
-    <!-- نافذة إضافة دواء جديد (Modal) -->
+    <!-- نافذة إضافة دواء جديد -->
     <div id="addMedicineModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('addMedicineModal')">
@@ -572,8 +616,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="medPrice">السعر (جنيه)</label>
-                    <input type="number" id="medPrice" step="0.25" placeholder="أدخل السعر..." required>
+                    <label for="medPrice">السعر الحالي (جنيه)</label>
+                    <input type="number" id="medPrice" step="0.25" placeholder="أدخل السعر الجديد/الحالي..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="medOldPrice">السعر القديم قبل العرض (اختياري)</label>
+                    <input type="number" id="medOldPrice" step="0.25" placeholder="اتركه فارغاً إذا لم يوجد عرض...">
                 </div>
 
                 <div class="form-group">
@@ -602,7 +651,7 @@
         </div>
     </div>
 
-    <!-- نافذة تفاصيل المنتج المنبثقة (Modal) -->
+    <!-- نافذة تفاصيل المنتج -->
     <div id="detailsModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('detailsModal')">
@@ -615,7 +664,7 @@
         </div>
     </div>
 
-    <!-- نافذة إتمام الشراء وتأكيد الطلب (Checkout Modal) -->
+    <!-- نافذة إتمام الشراء -->
     <div id="checkoutModal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('checkoutModal')">
@@ -657,7 +706,7 @@
         </div>
     </div>
 
-    <!-- نافذة لوحة تحكم طلبات العملاء (Admin Orders Modal) -->
+    <!-- لوحة طلبات العملاء -->
     <div id="ordersModal" class="modal-overlay">
         <div class="modal-content wide-modal">
             <button class="modal-close" onclick="closeModal('ordersModal')">
@@ -677,11 +726,8 @@
     </footer>
 
     <script>
-        // إعدادات الاتصال السحابي بـ Supabase
         const SUPABASE_URL = 'https://zruxjflttqtqtnfgtjcl.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_pfeeWhP7glSOupdwhNrVCQ_SnVjp0cu';
-        
-        // 🔐 كلمة المرور الخاصة بالمدير
         const ADMIN_PASSWORD = '1234'; 
 
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -701,7 +747,6 @@
             }
         });
 
-        // جلب الأدوية عند فتح الصفحة
         async function fetchMedicines() {
             const { data, error } = await _supabase.from('medicines').select('*').order('id', { ascending: false });
             
@@ -724,15 +769,19 @@
 
             data.forEach(med => {
                 const description = med.description || 'لا يوجد وصف متاح لهذا المنتج.';
+                const oldPrice = med.old_price ? `<span class="old-price">${med.old_price} ج.م</span>` : '';
+                const saleBadge = med.old_price ? `<div class="sale-badge">عرض<br>خاص</div>` : '';
+
                 const medicineCard = document.createElement('div');
                 medicineCard.className = 'medicine-card';
                 medicineCard.innerHTML = `
+                    ${saleBadge}
                     <div class="options-menu-container">
                         <button class="options-btn" onclick="toggleOptionsMenu(event, '${med.id}')">
                             <i class="fa-solid fa-ellipsis-vertical"></i>
                         </button>
                         <div id="menu-${med.id}" class="dropdown-menu">
-                            <button onclick="editMedicine('${med.id}', '${med.name}', '${med.price}', \`${description}\`)">
+                            <button onclick="editMedicine('${med.id}', '${med.name}', '${med.price}', '${med.old_price || ''}', \`${description}\`)">
                                 <i class="fa-solid fa-pen-to-square"></i> تعديل المنتج
                             </button>
                             <button onclick="openDetailsModal('${med.name}', '${med.price}', \`${description}\`, '${med.image_url}')">
@@ -747,7 +796,11 @@
                     <img src="${med.image_url}" alt="${med.name}" class="medicine-img">
                     <div class="medicine-info">
                         <div class="medicine-name">${med.name}</div>
-                        <div class="medicine-price">${med.price} ج.م</div>
+                        <div class="medicine-desc-preview">${description}</div>
+                        <div class="price-container">
+                            <span class="medicine-price">${med.price} ج.م</span>
+                            ${oldPrice}
+                        </div>
                         
                         <div class="card-actions">
                             <button onclick="openCheckoutModal('${med.name}', '${med.price}')" class="btn-buy">
@@ -796,7 +849,6 @@
             document.getElementById(modalId).style.display = 'none';
         }
 
-        // التحقق من كلمة المرور لفتح نافذة إضافة دواء
         function checkAdminForAdd() {
             const password = prompt("أدخل كلمة مرور المدير لإضافة دواء جديد:");
             if (password === null) return;
@@ -810,7 +862,6 @@
             document.getElementById('addMedicineModal').style.display = 'flex';
         }
 
-        // حفظ الطلب في جدول "orders" فور الضغط على تأكيد الطلب
         async function submitOrder(e) {
             e.preventDefault();
             if (!selectedProductForBuy) return;
@@ -842,7 +893,6 @@
             alert(`✅ تم تأكيد طلبك بنجاح برقم (${orderNumber})! سيتم مراجعته وتجهيزه قريباً.`);
         }
 
-        // التحقق من الباسورد لفتح لوحة طلبات العملاء
         function checkAdminForOrders() {
             const password = prompt("أدخل كلمة مرور المدير لعرض الطلبات:");
             if (password === null) return;
@@ -854,7 +904,6 @@
             document.getElementById('ordersModal').style.display = 'flex';
         }
 
-        // جلب الطلبات من جدول "orders"
         async function fetchOrders() {
             const container = document.getElementById('ordersContainer');
             container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">جاري تحميل الطلبات...</p>';
@@ -897,7 +946,6 @@
             });
         }
 
-        // تحديث حالة الطلب سحابياً
         async function updateOrderStatus(orderId, newStatus) {
             const { error } = await _supabase
                 .from('orders')
@@ -909,7 +957,7 @@
             }
         }
 
-        async function editMedicine(id, currentName, currentPrice, currentDesc) {
+        async function editMedicine(id, currentName, currentPrice, currentOldPrice, currentDesc) {
             const password = prompt("أدخل كلمة مرور المدير للتعديل:");
             if (password === null) return;
             if (password !== ADMIN_PASSWORD) {
@@ -920,15 +968,23 @@
             const newName = prompt("أدخل الاسم الجديد للمنتج:", currentName);
             if (newName === null) return;
 
-            const newPrice = prompt("أدخل السعر الجديد للمنتج:", currentPrice);
+            const newPrice = prompt("أدخل السعر الحالي/الجديد:", currentPrice);
             if (newPrice === null) return;
+
+            const newOldPrice = prompt("أدخل السعر القديم (اتركه فارغاً إذا لم يوجد عرض):", currentOldPrice);
+            if (newOldPrice === null) return;
 
             const newDesc = prompt("أدخل الوصف الجديد للمنتج:", currentDesc);
             if (newDesc === null) return;
 
             const { error } = await _supabase
                 .from('medicines')
-                .update({ name: newName, price: parseFloat(newPrice), description: newDesc })
+                .update({ 
+                    name: newName, 
+                    price: parseFloat(newPrice), 
+                    old_price: newOldPrice ? parseFloat(newOldPrice) : null,
+                    description: newDesc 
+                })
                 .eq('id', id);
 
             if (error) {
@@ -951,6 +1007,7 @@
 
             const name = document.getElementById('medName').value;
             const price = document.getElementById('medPrice').value;
+            const oldPriceVal = document.getElementById('medOldPrice').value;
             const description = document.getElementById('medDesc').value;
             const imageFile = medImageInput.files[0];
 
@@ -975,7 +1032,13 @@
 
                 const { error: insertError } = await _supabase
                     .from('medicines')
-                    .insert([{ name, price: parseFloat(price), description, image_url: imageUrl }]);
+                    .insert([{ 
+                        name, 
+                        price: parseFloat(price), 
+                        old_price: oldPriceVal ? parseFloat(oldPriceVal) : null,
+                        description, 
+                        image_url: imageUrl 
+                    }]);
 
                 if (insertError) throw insertError;
 
