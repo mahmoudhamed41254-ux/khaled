@@ -1,0 +1,16 @@
+{
+  "name": "صيدلية خالد محمد رجب",
+  "short_name": "صيدلية خالد",
+  "description": "موقع صيدلية خالد محمد رجب للطلبات وتتبع الطلبات",
+  "start_url": "./pharmacy-khaled-pro-all.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#0d6efd",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
