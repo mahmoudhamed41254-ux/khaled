@@ -317,6 +317,64 @@
             z-index: 5;
         }
 
+        .options-menu-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+
+        .options-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 38px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            min-width: 150px;
+            z-index: 20;
+        }
+
+        .dropdown-menu button {
+            width: 100%;
+            padding: 10px;
+            background: none;
+            border: none;
+            text-align: right;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dropdown-menu button:last-child {
+            color: #dc2626;
+            border-bottom: none;
+        }
+
+        .dropdown-menu button:hover {
+            background: var(--bg-color);
+        }
+
         .medicine-img {
             width: 100%;
             height: 160px;
@@ -334,9 +392,10 @@
 
         .medicine-title-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px;}
         .medicine-title-row .medicine-name{flex:1;}
+        .sale-inline{display:inline-flex;align-items:center;margin-right:7px;padding:3px 8px;border-radius:999px;background:var(--primary);color:#fff;font-size:10px;font-weight:800;vertical-align:middle;white-space:nowrap;}
         .fav-btn-inline{width:34px;height:34px;min-width:34px;border:1px solid var(--border-color);border-radius:50%;background:var(--card-bg);color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;}
         .fav-btn-inline:hover,.fav-btn-inline.active{color:#e91e63;border-color:#e91e63;transform:scale(1.05);}
-        .product-code-small{font-size:11px;color:var(--primary);font-weight:800;margin:1px 0 7px;}
+        .product-code-small{font-size:10px;color:var(--text-muted);font-weight:600;margin:1px 0 7px;}
 
         .medicine-name {
             font-size: 1.1rem;
@@ -367,12 +426,31 @@
         }
 
         .old-price {
-            color: var(--text-muted);
-            text-decoration: line-through;
+            color: #111;
+            text-decoration: none;
             font-size: 0.9rem;
             font-weight: 600;
             display: inline-block;
             position: relative;
+            line-height: 1.2;
+        }
+
+        .old-price::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 2px;
+            width: 115%;
+            left: -7.5%;
+            right: auto;
+            transform: translateY(-50%) rotate(-18deg);
+            transform-origin: center;
+            background: #e85d5d;
+            border-radius: 2px;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.95);
+            pointer-events: none;
         }
 
         .card-actions {
@@ -380,7 +458,6 @@
             gap: 8px;
             margin-top: auto;
             padding-top: 0.5rem;
-            flex-wrap: wrap;
         }
 
         .btn-buy {
@@ -419,6 +496,79 @@
 
         .btn-details:hover { background: var(--primary-dark); }
 
+        /* تصميم كارت الطلب الجديد */
+        .custom-order-card {
+            background-color: #0b0f19;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            color: #f8fafc;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        .order-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #1e293b;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .order-id-text {
+            color: #38bdf8;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .order-status-select {
+            background-color: #111827;
+            color: #f8fafc;
+            border: 1px solid #334155;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .order-card-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 600px) {
+            .order-card-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .order-info-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .order-info-row {
+            display: flex;
+            gap: 5px;
+        }
+
+        .order-label {
+            color: #94a3b8;
+        }
+
+        .order-value {
+            color: #f8fafc;
+            font-weight: 500;
+        }
+
         /* نوافذ المودال */
         .modal-overlay {
             display: none;
@@ -447,7 +597,7 @@
             border: 1px solid var(--border-color);
         }
 
-        .modal-content.wide-modal { max-width: 850px; }
+        .modal-content.wide-modal { max-width: 750px; }
 
         .modal-close {
             position: absolute;
@@ -463,6 +613,7 @@
             justify-content: center;
         }
 
+        /* سلة المشتريات */
         .cart-item-row {
             display: flex;
             justify-content: space-between;
@@ -499,25 +650,52 @@
             color: var(--text-muted);
             margin-top: auto;
         }
+    
+/* ===== إضافات النسخة الاحترافية ===== */
+.feature-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}.feature-box{cursor:default}.feature-box.feature-clickable{cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}.feature-box.feature-clickable:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(15,23,42,.10);border-color:var(--primary)}.feature-box.feature-clickable:focus-visible{outline:3px solid rgba(14,165,233,.25);outline-offset:2px}.feature-box{background:var(--card-bg);border:1px solid var(--border-color);border-radius:16px;padding:18px;display:flex;align-items:center;gap:12px;box-shadow:0 6px 18px rgba(15,23,42,.05)}.feature-box i{font-size:25px;color:var(--primary)}.feature-box strong{display:block}.feature-box small{color:var(--text-muted)}
+.quick-actions{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}.quick-actions button{border:1px solid var(--border-color);background:var(--card-bg);color:var(--text-main);padding:10px 14px;border-radius:12px;cursor:pointer;font-family:inherit;font-weight:700}.quick-actions button:hover{border-color:var(--primary);color:var(--primary)}
+.fav-btn{position:absolute;left:12px;top:12px;z-index:3;border:0;background:rgba(255,255,255,.92);width:38px;height:38px;border-radius:50%;cursor:pointer;color:#94a3b8;font-size:17px;box-shadow:0 4px 12px rgba(0,0,0,.08)}.fav-btn.active{color:#ef4444}.stock-badge{position:absolute;right:12px;top:12px;background:#dcfce7;color:#166534;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800}.stock-badge.low{background:#fef3c7;color:#92400e}.stock-badge.out{background:#fee2e2;color:#991b1b}.medicine-card{position:relative}.btn-buy:disabled{opacity:.5;cursor:not-allowed}
+.offer-banner{background:linear-gradient(135deg,var(--primary),var(--accent));color:white;border-radius:20px;padding:22px;margin:18px 0;display:flex;align-items:center;justify-content:space-between;gap:15px}.offer-banner h2{margin:0 0 5px}.offer-banner p{margin:0;opacity:.9}.offer-banner button{border:0;background:white;color:var(--primary-dark);font-family:inherit;font-weight:900;padding:11px 16px;border-radius:12px;cursor:pointer}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:15px 0}.stat-box{background:var(--bg-color);border:1px solid var(--border-color);border-radius:14px;padding:15px}.stat-box .num{font-size:24px;font-weight:900;margin-top:5px}.stat-box small{color:var(--text-muted)}
+.dashboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.dash-panel{border:1px solid var(--border-color);border-radius:14px;padding:15px;background:var(--bg-color)}.dash-panel h3{margin-top:0}.mini-list{max-height:250px;overflow:auto}.mini-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-color)}
+.track-result{margin-top:15px}.timeline{display:flex;justify-content:space-between;gap:5px;position:relative;margin:25px 5px}.timeline:before{content:"";position:absolute;top:16px;left:8%;right:8%;height:4px;background:var(--border-color)}.step{position:relative;z-index:1;text-align:center;flex:1}.step i{width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--border-color);color:var(--text-muted)}.step.done i,.step.current i{background:var(--primary);color:white}.step span{display:block;font-size:11px;margin-top:6px}
+.coupon-row{display:flex;gap:8px}.coupon-row input{flex:1}.coupon-result{font-size:13px;margin-top:6px}.delivery-note{background:var(--bg-color);padding:10px;border-radius:10px;margin:10px 0;font-size:13px;color:var(--text-muted)}
+@media(max-width:800px){.feature-strip,.stats-grid{grid-template-columns:repeat(2,1fr)}.dashboard-grid{grid-template-columns:1fr}.offer-banner{flex-direction:column;align-items:flex-start}}@media(max-width:520px){.feature-strip,.stats-grid{grid-template-columns:1fr 1fr}.timeline span{font-size:9px}.header-actions{flex-wrap:wrap}}
 
-        .feature-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}
-        .feature-box{background:var(--card-bg);border:1px solid var(--border-color);border-radius:16px;padding:18px;display:flex;align-items:center;gap:12px;box-shadow:0 6px 18px rgba(15,23,42,.05)}
-        .feature-box i{font-size:25px;color:var(--primary)}
-        .quick-actions{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
-        .quick-actions button{border:1px solid var(--border-color);background:var(--card-bg);color:var(--text-main);padding:10px 14px;border-radius:12px;cursor:pointer;font-family:inherit;font-weight:700}
-        .quick-actions button:hover{border-color:var(--primary);color:var(--primary)}
-        .stock-badge{position:absolute;right:12px;top:12px;background:#dcfce7;color:#166534;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800;z-index:5}
-        .stock-badge.low{background:#fef3c7;color:#92400e}
-        .stock-badge.out{background:#fee2e2;color:#991b1b}
-        .qty-row{display:flex;align-items:center;gap:9px;margin:9px 0}
-        .qty-row button{width:30px;height:30px;border:1px solid var(--border-color);background:var(--card-bg);border-radius:8px;font-size:18px;cursor:pointer}
-        .qty-row span{min-width:24px;text-align:center;font-weight:900}
-        .qty-row small{margin-right:auto;color:var(--text-muted)}
-        .stock-out-msg{color:#dc2626;font-weight:900;margin:8px 0}
-        .admin-table{width:100%;border-collapse:collapse;margin-top:10px}
-        .admin-table th,.admin-table td{padding:10px;border-bottom:1px solid var(--border-color);text-align:right;font-size:13px}
-        .admin-table th{background:var(--bg-color);color:var(--text-muted)}
-    </style>
+    
+/* ===== لوحة الإدارة المتقدمة ===== */
+.admin-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:end;background:var(--card-bg);border:1px solid var(--border-color);padding:14px;border-radius:16px;margin:14px 0}
+.admin-toolbar .tool{min-width:145px;flex:1}.admin-toolbar label{display:block;font-size:12px;color:var(--text-muted);margin-bottom:5px;font-weight:700}.admin-toolbar select,.admin-toolbar input{width:100%;padding:10px;border:1px solid var(--border-color);border-radius:10px;background:var(--bg-color);color:var(--text-main);font-family:inherit}
+.admin-toolbar button{padding:10px 13px;border:0;border-radius:10px;background:var(--primary);color:#fff;font-family:inherit;font-weight:800;cursor:pointer}.admin-toolbar .secondary{background:var(--bg-color);color:var(--text-main);border:1px solid var(--border-color)}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}.kpi{position:relative;overflow:hidden;background:var(--card-bg);border:1px solid var(--border-color);border-radius:16px;padding:16px}.kpi .icon{position:absolute;left:12px;top:12px;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(14,165,233,.12);color:var(--primary)}.kpi small{color:var(--text-muted);font-weight:700}.kpi .value{font-size:25px;font-weight:900;margin:7px 0}.kpi .sub{font-size:11px;color:var(--text-muted)}
+.dashboard-layout{display:grid;grid-template-columns:1.25fr .75fr;gap:14px}.dashboard-layout .full{grid-column:1/-1}.admin-chart{height:260px;display:flex;align-items:flex-end;gap:8px;padding:20px 10px 5px;border-top:1px solid var(--border-color)}.bar-col{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px;min-width:0}.bar{width:min(30px,70%);border-radius:7px 7px 2px 2px;background:var(--primary);min-height:3px}.bar-label{font-size:10px;color:var(--text-muted);white-space:nowrap}.bar-value{font-size:10px;font-weight:800}.donut-wrap{display:flex;align-items:center;gap:18px;min-height:220px}.donut{width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--primary) 0 45%,var(--accent) 45% 75%,#f59e0b 75% 90%,#ef4444 90%);position:relative;flex:none}.donut:after{content:'';position:absolute;inset:34px;border-radius:50%;background:var(--bg-color)}.legend{flex:1}.legend-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--border-color);font-size:13px}.dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-left:5px}
+.progress{height:8px;background:var(--border-color);border-radius:999px;overflow:hidden;margin-top:6px}.progress>span{display:block;height:100%;background:var(--primary);border-radius:999px}.admin-table-wrap{overflow:auto}.admin-table{width:100%;border-collapse:collapse;min-width:760px}.admin-table th,.admin-table td{padding:10px;border-bottom:1px solid var(--border-color);text-align:right;white-space:nowrap;font-size:12px}.admin-table th{color:var(--text-muted);background:var(--card-bg);position:sticky;top:0;z-index:1}.status-pill{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800}.status-new{background:#dbeafe;color:#1d4ed8}.status-delivery{background:#fef3c7;color:#92400e}.status-done{background:#dcfce7;color:#166534}.status-cancel{background:#fee2e2;color:#991b1b}.alert-list{display:grid;gap:8px}.alert-item{padding:11px;border-radius:12px;border:1px solid var(--border-color);background:var(--card-bg);display:flex;justify-content:space-between;gap:10px;align-items:center}.alert-item.danger{border-right:4px solid #ef4444}.alert-item.warn{border-right:4px solid #f59e0b}.rank-row{display:grid;grid-template-columns:28px 1fr 75px;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--border-color)}.rank-no{font-weight:900;color:var(--primary)}
+@media(max-width:1050px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.dashboard-layout{grid-template-columns:1fr}}@media(max-width:520px){.kpi-grid{grid-template-columns:1fr 1fr}.donut-wrap{flex-direction:column}.admin-toolbar .tool{min-width:120px}}
+
+    
+.medicine-card .sale-badge{position:absolute!important;top:10px!important;left:10px!important;right:auto!important;width:48px!important;height:48px!important;border-radius:50%!important;display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;line-height:1.05!important;padding:4px!important;background:#e53935!important;color:#fff!important;font-size:10px!important;font-weight:900!important;z-index:8!important;box-shadow:0 3px 10px rgba(0,0,0,.18)!important;}
+
+        .product-detail-grid{display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}.product-detail-img{width:100%;height:260px;object-fit:contain;border-radius:18px;background:var(--bg-color);border:1px solid var(--border-color)}.detail-price{font-size:28px;font-weight:900;color:var(--accent)}.detail-old{color:#111827;text-decoration:line-through;text-decoration-color:#ef4444;text-decoration-thickness:2px;font-size:16px;margin-right:8px}.detail-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.detail-chip{background:var(--bg-color);border:1px solid var(--border-color);padding:7px 10px;border-radius:999px;font-size:12px}.detail-qty{display:flex;align-items:center;gap:10px;margin:15px 0}.detail-qty button{width:38px;height:38px;border:1px solid var(--border-color);border-radius:10px;background:var(--card-bg);font-size:20px;cursor:pointer}.detail-qty span{min-width:35px;text-align:center;font-weight:900}.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.related-card{border:1px solid var(--border-color);border-radius:12px;padding:9px;cursor:pointer;background:var(--card-bg)}.related-card img{width:100%;height:80px;object-fit:contain;border-radius:8px;background:var(--bg-color)}.shipping-progress{padding:11px;border-radius:12px;background:#effdf5;border:1px solid #bbf7d0;color:#166534;margin:10px 0;font-size:13px}.order-success-modal{max-width:620px}.success-icon{font-size:62px;color:#22c55e}.invoice-box{font-family:Tahoma,Arial,sans-serif;direction:rtl}.coupon-admin-row{display:grid;grid-template-columns:1fr 110px 110px 100px auto;gap:8px;align-items:end;margin-bottom:10px}.coupon-admin-row input{width:100%;padding:9px;border:1px solid var(--border-color);border-radius:9px;background:var(--card-bg);color:var(--text-main)}.coupon-admin-row label{font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px}@media(max-width:700px){.cart-drawer{max-width:520px!important;margin-right:0!important;margin-left:auto!important;height:100vh;max-height:100vh!important;border-radius:0!important;overflow:auto;animation:drawerIn .22s ease}@keyframes drawerIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+</style><style>
+.hero-offers{margin:18px 0;padding:28px;border-radius:24px;background:linear-gradient(135deg,#e9fff4,#f4fbff);border:1px solid #cdeedc;display:flex;justify-content:space-between;align-items:center;gap:20px;overflow:hidden;position:relative}.hero-copy h1{margin:7px 0;font-size:32px}.hero-copy p{color:var(--text-muted);margin:6px 0 16px}.hero-kicker{font-weight:900;color:var(--primary)}.hero-actions{display:flex;gap:10px}.hero-btn{border:0;border-radius:13px;padding:11px 18px;background:var(--primary);color:#fff;font-weight:900;cursor:pointer}.hero-btn.secondary{background:#fff;color:var(--primary);border:1px solid var(--primary)}.hero-bubble{min-width:170px;padding:24px;border-radius:50%;background:#fff;box-shadow:0 12px 30px #0001;text-align:center;display:grid;gap:4px}.hero-bubble i{font-size:32px;color:var(--primary)}.quick-sections{margin:20px 0}.quick-head{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}.quick-head h2{margin:0}.quick-head button{border:0;background:none;color:var(--primary);font-weight:900;cursor:pointer}.mini-products{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.mini-product{background:var(--card-bg);border:1px solid var(--border-color);border-radius:16px;padding:12px;display:flex;gap:10px;align-items:center;cursor:pointer;transition:.2s}.mini-product:hover{transform:translateY(-3px);box-shadow:0 10px 22px #0001}.mini-product img{width:60px;height:60px;object-fit:contain;border-radius:12px;background:#f7f7f7}.mini-product b{display:block}.mini-product small{color:var(--text-muted)}.qty-row{display:flex;align-items:center;gap:9px;margin:9px 0}.qty-row button{width:30px;height:30px;border:1px solid var(--border-color);background:var(--card-bg);border-radius:8px;font-size:18px;cursor:pointer}.qty-row span{min-width:24px;text-align:center;font-weight:900}.qty-row small{margin-right:auto;color:var(--text-muted)}.stock-out-msg{color:#dc2626;font-weight:900;margin:8px 0}.card-actions{flex-wrap:wrap}.card-actions button:disabled{opacity:.45;cursor:not-allowed}.product-code-line{font-size:11px;color:var(--primary);font-weight:800;margin:4px 0}.medicine-card{transition:transform .2s,box-shadow .2s}.medicine-card:hover{transform:translateY(-5px);box-shadow:0 14px 30px #0001}.admin-alert-banner{padding:14px;border-radius:14px;background:#fff7ed;border:1px solid #fed7aa;margin-bottom:14px;font-weight:800}
+@media(max-width:800px){.mini-products{grid-template-columns:repeat(2,1fr)}.hero-offers{flex-direction:column;align-items:stretch}.hero-bubble{border-radius:18px}.hero-copy h1{font-size:25px}}
+
+        .product-detail-grid{display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:start}.product-detail-img{width:100%;height:260px;object-fit:contain;border-radius:18px;background:var(--bg-color);border:1px solid var(--border-color)}.detail-price{font-size:28px;font-weight:900;color:var(--accent)}.detail-old{color:#111827;text-decoration:line-through;text-decoration-color:#ef4444;text-decoration-thickness:2px;font-size:16px;margin-right:8px}.detail-meta{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.detail-chip{background:var(--bg-color);border:1px solid var(--border-color);padding:7px 10px;border-radius:999px;font-size:12px}.detail-qty{display:flex;align-items:center;gap:10px;margin:15px 0}.detail-qty button{width:38px;height:38px;border:1px solid var(--border-color);border-radius:10px;background:var(--card-bg);font-size:20px;cursor:pointer}.detail-qty span{min-width:35px;text-align:center;font-weight:900}.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.related-card{border:1px solid var(--border-color);border-radius:12px;padding:9px;cursor:pointer;background:var(--card-bg)}.related-card img{width:100%;height:80px;object-fit:contain;border-radius:8px;background:var(--bg-color)}.shipping-progress{padding:11px;border-radius:12px;background:#effdf5;border:1px solid #bbf7d0;color:#166534;margin:10px 0;font-size:13px}.order-success-modal{max-width:620px}.success-icon{font-size:62px;color:#22c55e}.invoice-box{font-family:Tahoma,Arial,sans-serif;direction:rtl}.coupon-admin-row{display:grid;grid-template-columns:1fr 110px 110px 100px auto;gap:8px;align-items:end;margin-bottom:10px}.coupon-admin-row input{width:100%;padding:9px;border:1px solid var(--border-color);border-radius:9px;background:var(--card-bg);color:var(--text-main)}.coupon-admin-row label{font-size:11px;color:var(--text-muted);display:block;margin-bottom:4px}@media(max-width:700px){.product-detail-grid{grid-template-columns:1fr}.related-grid{grid-template-columns:repeat(2,1fr)}.coupon-admin-row{grid-template-columns:1fr 1fr}.coupon-admin-row .coupon-full{grid-column:1/-1}}
+</style>
+
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0d6efd">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="صيدلية خالد محمد رجب">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+#pwaInstallBtn{position:fixed;bottom:18px;left:18px;z-index:9999;display:none;border:0;border-radius:999px;padding:12px 18px;background:#0d6efd;color:#fff;font-family:inherit;font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.2);cursor:pointer}
+#pwaInstallBtn.show{display:flex;align-items:center;gap:8px;animation:pwaPop .35s ease}
+@keyframes pwaPop{from{transform:translateY(15px);opacity:0}to{transform:translateY(0);opacity:1}}
+@media(max-width:600px){#pwaInstallBtn{left:12px;right:12px;justify-content:center;bottom:12px}}
+</style>
 </head>
 <body data-theme="light">
 
@@ -536,8 +714,11 @@
             <button class="header-btn" onclick="checkAdminForAdd()">
                 <i class="fa-solid fa-plus-circle"></i> إضافة دواء
             </button>
+            <button class="header-btn" onclick="checkAdminForOrders()">
+                <i class="fa-solid fa-clipboard-list"></i> الطلبات
+            </button>
             <button class="header-btn" onclick="openAdminDashboard()">
-                <i class="fa-solid fa-sliders"></i> لوحة التحكم والإدارة
+                <i class="fa-solid fa-chart-line"></i> لوحة الإدارة
             </button>
         </div>
         <h1><i class="fa-solid fa-house-medical"></i> صيدلية خالد محمد رجب</h1>
@@ -549,7 +730,7 @@
         <div class="store-controls">
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="ابحث عن اسم الدواء أو كود المنتج..." oninput="filterMedicines()">
+                <input type="text" id="searchInput" placeholder="ابحث عن اسم الدواء أو الكود أو الوصف..." oninput="filterMedicines()">
             </div>
             <div class="categories-filter">
                 <button class="cat-btn active" onclick="filterByCategory('all', this)">الكل</button>
@@ -560,12 +741,31 @@
             </div>
         </div>
 
+
+        <div class="feature-strip">
+            <div class="feature-box"><i class="fa-solid fa-truck-fast"></i><div><strong>توصيل للبيت</strong><small>تابع طلبك لحظة بلحظة</small></div></div>
+            <div class="feature-box"><i class="fa-solid fa-prescription-bottle-medical"></i><div><strong>اطلب روشتتك</strong><small>ارفع صورة الروشتة بسهولة</small></div></div>
+            <div class="feature-box"><i class="fa-solid fa-tags"></i><div><strong>عروض وكوبونات</strong><small>خصومات على منتجات مختارة</small></div></div>
+            <div class="feature-box"><i class="fa-solid fa-headset"></i><div><strong>تواصل سريع</strong><small>اتصل أو راسل الصيدلية</small></div></div>
+        </div>
+        <div class="offer-banner">
+            <div><h2>💚 عروض الصيدلية</h2><p>استخدم الكوبون <b>WELCOME10</b> للحصول على خصم 10% على الطلبات.</p></div>
+            <button onclick="openCartModal();setTimeout(()=>document.getElementById('couponInput')?.focus(),200)">استخدم الكوبون</button>
+        </div>
         <div class="quick-actions">
+            <button onclick="openTrackModal()"><i class="fa-solid fa-location-dot"></i> تتبع طلب</button>
             <button onclick="openFavoritesModal()"><i class="fa-solid fa-heart"></i> المفضلة</button>
+            <button onclick="openHistoryModal()"><i class="fa-solid fa-clock-rotate-left"></i> طلباتي السابقة</button>
             <button onclick="contactWhatsApp()"><i class="fa-brands fa-whatsapp"></i> واتساب</button>
             <button onclick="callPharmacy()"><i class="fa-solid fa-phone"></i> اتصل بالصيدلية</button>
+            <button onclick="showOffers()"><i class="fa-solid fa-percent"></i> العروض</button>
         </div>
 
+        <section class="hero-offers"><div class="hero-copy"><span class="hero-kicker">صيدلية خالد محمد رجب</span><h1>دواؤك أسهل وأسرع 💚</h1><p>اختار منتجك، اطلبه، وتابع طلبك خطوة بخطوة.</p><div class="hero-actions"><button onclick="scrollToMedicines()" class="hero-btn">تسوق الآن <i class="fa-solid fa-arrow-left"></i></button><button onclick="showOffers()" class="hero-btn secondary">عروض اليوم <i class="fa-solid fa-tags"></i></button></div></div><div class="hero-bubble"><i class="fa-solid fa-truck-medical"></i><b>توصيل سريع</b><small>اطلب بسهولة من أي جهاز</small></div></section>
+        <div class="feature-strip feature-strip-actions"><div class="feature-box feature-clickable" role="button" tabindex="0" onclick="scrollToMedicines()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();scrollToMedicines();}"><i class="fa-solid fa-bolt"></i><div><strong>اشترِ الآن</strong><small>اطلب مباشرة بدون خطوات زائدة</small></div></div><div class="feature-box feature-clickable" role="button" tabindex="0" onclick="openTrackModal()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTrackModal();}"><i class="fa-solid fa-box-open"></i><div><strong>تتبع الطلب</strong><small>اعرف حالة طلبك لحظة بلحظة</small></div></div><div class="feature-box feature-clickable" role="button" tabindex="0" onclick="openFavoritesModal()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openFavoritesModal();}"><i class="fa-solid fa-heart"></i><div><strong>المفضلة</strong><small>احتفظ بمنتجاتك المهمة</small></div></div><div class="feature-box feature-clickable" role="button" tabindex="0" onclick="contactWhatsApp()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();contactWhatsApp();}"><i class="fa-brands fa-whatsapp"></i><div><strong>واتساب</strong><small>تواصل معنا بسرعة</small></div></div></div>
+        <section class="quick-sections"><div class="quick-head"><h2>🔥 الأكثر طلبًا</h2><button onclick="showPopular()">عرض الكل</button></div><div id="popularContainer" class="mini-products"></div><div class="quick-head"><h2>🆕 وصل حديثًا</h2><button onclick="showNewArrivals()">عرض الكل</button></div><div id="newContainer" class="mini-products"></div></section>
+        <section class="quick-sections" id="recentSection" style="display:none"><div class="quick-head"><h2>👀 شوفتها قبل كده</h2><button onclick="clearRecentViewed()">مسح</button></div><div id="recentContainer" class="mini-products"></div></section>
+        <div id="medicinesAnchor"></div>
         <div class="card">
             <h2><i class="fa-solid fa-pills"></i> أدوية الصيدلية المتاحة</h2>
             <div id="medicinesContainer" class="medicines-grid">
@@ -588,8 +788,9 @@
                     <input type="text" id="medName" required>
                 </div>
                 <div class="form-group">
-                    <label><i class="fa-solid fa-barcode"></i> كود المنتج (مختلف لكل منتج)</label>
-                    <input type="text" id="medCode" placeholder="مثال: MED-101" required>
+                    <label><i class="fa-solid fa-barcode"></i> كود المنتج</label>
+                    <input type="text" id="medCode" inputmode="numeric" autocomplete="off" placeholder="مثال: 10025" required>
+                    <small style="color:var(--text-muted);display:block;margin-top:5px;">الكود الذي ستبحث به داخل لوحة الإدارة لتعديل المخزون.</small>
                 </div>
                 <div class="form-group">
                     <label>القسم / التصنيف</label>
@@ -605,12 +806,8 @@
                     <input type="number" id="medPrice" step="0.25" required>
                 </div>
                 <div class="form-group">
-                    <label>السعر القديم (اختياري لعرض الخصم)</label>
+                    <label>السعر القديم (اختياري لعرض خاص)</label>
                     <input type="number" id="medOldPrice" step="0.25">
-                </div>
-                <div class="form-group">
-                    <label>الكمية المتاحة في المخزن</label>
-                    <input type="number" id="medStock" value="20" min="0" required>
                 </div>
                 <div class="form-group">
                     <label>وصف المنتج</label>
@@ -628,36 +825,35 @@
                     <label>كلمة مرور المدير</label>
                     <input type="password" id="adminPassword" required>
                 </div>
-                <button type="submit" class="btn-submit">حفظ وإضافة المنتج</button>
+                <button type="submit" id="submitBtn" class="btn-submit">حفظ وإضافة</button>
             </form>
         </div>
     </div>
 
-    <!-- لوحة إدارة المنتجات (تعديل بالبحث عن الكود أو الاسم، حذف، تحديث كمية، إلخ) -->
-    <div id="adminDashboardModal" class="modal-overlay">
-        <div class="modal-content wide-modal">
-            <button class="modal-close" onclick="closeModal('adminDashboardModal')"><i class="fa-solid fa-xmark"></i></button>
-            <h2><i class="fa-solid fa-sliders"></i> لوحة إدارة وتحكم المنتجات</h2>
-            <div class="form-group" style="margin-top: 15px;">
-                <input type="text" id="adminSearchInput" placeholder="ابحث بالكود أو اسم المنتج لتعديله أو حذفه بسرعة..." oninput="renderAdminProductsList()">
-            </div>
-            <div style="overflow-x: auto; max-height: 450px;">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>الكود</th>
-                            <th>الصورة</th>
-                            <th>الاسم</th>
-                            <th>السعر</th>
-                            <th>الكمية</th>
-                            <th>الإجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminProductsTableBody">
-                        <!-- يتم تعبئتها ديناميكياً -->
-                    </tbody>
-                </table>
-            </div>
+    <!-- نافذة طلب روشتة أو دواء ناقص -->
+    <div id="prescriptionModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('prescriptionModal')"><i class="fa-solid fa-xmark"></i></button>
+            <h2><i class="fa-solid fa-file-prescription"></i> اطلب روشتة أو دواء غير موجود</h2>
+            <form onsubmit="submitPrescriptionOrder(event)">
+                <div class="form-group">
+                    <label>اسمك الكامل</label>
+                    <input type="text" id="pName" required>
+                </div>
+                <div class="form-group">
+                    <label>رقم التليفون للتواصل</label>
+                    <input type="tel" id="pPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>ملاحظات أو أسماء الأدوية المطلوبة بالروشيتة</label>
+                    <textarea id="pNotes" rows="3" placeholder="اكتب أسماء الأدوية أو تفاصيل الروشتة..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>صورة الروشتة أو العلبة</label>
+                    <input type="file" id="pImage" accept="image/*" required style="padding:0.5rem">
+                </div>
+                <button type="submit" class="btn-submit">إرسال الطلب للصيدلية</button>
+            </form>
         </div>
     </div>
 
@@ -667,7 +863,6 @@
             <button class="modal-close" onclick="closeModal('detailsModal')"><i class="fa-solid fa-xmark"></i></button>
             <img id="modalImg" src="" alt="" style="width:100%; height:180px; object-fit:cover; border-radius:10px; margin-bottom:1rem;">
             <div id="modalTitle" style="font-size:1.3rem; font-weight:700; margin-bottom:0.5rem;"></div>
-            <div id="modalCode" style="font-size:0.9rem; color:var(--primary); font-weight:800; margin-bottom:0.5rem;"></div>
             <div id="modalPrice" style="font-size:1.2rem; color:var(--accent); font-weight:900; margin-bottom:1rem;"></div>
             <div id="modalDesc" style="font-size:1rem; color:var(--text-muted); background:var(--bg-color); padding:10px; border-radius:8px;"></div>
         </div>
@@ -681,12 +876,19 @@
             <div id="cartItemsContainer" style="max-height: 250px; overflow-y: auto; margin-bottom: 1rem;">
                 <p style="text-align:center; color:var(--text-muted);">السلة فارغة حالياً</p>
             </div>
+            <div class="coupon-row" style="margin:10px 0;">
+                <input id="couponInput" placeholder="كود الخصم (مثال: WELCOME10)">
+                <button type="button" class="btn-details" onclick="applyCoupon()">تطبيق</button>
+            </div>
+            <div id="couponResult" class="coupon-result"></div>
+            <div id="deliveryNote" class="delivery-note">التوصيل يُحسب حسب المنطقة بعد إدخال العنوان.</div>
             <div class="cart-total" id="cartTotalText">الإجمالي: 0 ج.م</div>
             
             <form id="cartCheckoutForm" onsubmit="submitCartOrder(event)" style="display:none;">
                 <div class="form-group"><label>اسم العميل</label><input type="text" id="cName" required></div>
                 <div class="form-group"><label>رقم التليفون</label><input type="tel" id="cPhone" required></div>
                 <div class="form-group"><label>العنوان بالتفصيل</label><textarea id="cAddress" rows="2" required></textarea></div>
+                <div class="form-group"><label>المنطقة / الحي</label><select id="cArea" onchange="recalculateCart()"><option value="داخل المدينة">داخل المدينة — 10 ج.م</option><option value="قرية / ضواحي">قرية / ضواحي — 20 ج.م</option><option value="خارج النطاق">خارج النطاق — 35 ج.م</option></select></div>
                 <div class="form-group">
                     <label>طريقة الدفع</label>
                     <select id="cPayment" required>
@@ -700,29 +902,25 @@
         </div>
     </div>
 
-    <!-- نافذة اطلب روشتة -->
-    <div id="prescriptionModal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('prescriptionModal')"><i class="fa-solid fa-xmark"></i></button>
-            <h2><i class="fa-solid fa-file-prescription"></i> اطلب روشتة أو دواء غير موجود</h2>
-            <form onsubmit="submitPrescriptionOrder(event)">
-                <div class="form-group"><label>اسمك الكامل</label><input type="text" id="pName" required></div>
-                <div class="form-group"><label>رقم التليفون للتواصل</label><input type="tel" id="pPhone" required></div>
-                <div class="form-group"><label>ملاحظات أو أسماء الأدوية المطلوبة</label><textarea id="pNotes" rows="3" required></textarea></div>
-                <div class="form-group"><label>صورة الروشتة</label><input type="file" id="pImage" accept="image/*" required style="padding:0.5rem"></div>
-                <button type="submit" class="btn-submit">إرسال الروشتة للصيدلية</button>
-            </form>
+    <!-- لوحة طلبات العملاء للمدير -->
+    <div id="ordersModal" class="modal-overlay">
+        <div class="modal-content wide-modal">
+            <button class="modal-close" onclick="closeModal('ordersModal')"><i class="fa-solid fa-xmark"></i></button>
+            <h2><i class="fa-solid fa-clipboard-list"></i> سجل طلبات العملاء</h2>
+            <div id="ordersContainer">
+                <p style="text-align:center; color:var(--text-muted);">جاري تحميل الطلبات...</p>
+            </div>
         </div>
     </div>
 
-    <!-- نافذة المفضلة -->
-    <div id="favoritesModal" class="modal-overlay">
-        <div class="modal-content wide-modal">
-            <button class="modal-close" onclick="closeModal('favoritesModal')"><i class="fa-solid fa-xmark"></i></button>
-            <h2><i class="fa-solid fa-heart"></i> قائمة المفضلة</h2>
-            <div id="favoritesContainer"></div>
-        </div>
-    </div>
+
+    <div id="trackModal" class="modal-overlay"><div class="modal-content"><button class="modal-close" onclick="closeModal('trackModal')"><i class="fa-solid fa-xmark"></i></button><h2><i class="fa-solid fa-location-dot"></i> تتبع طلبك</h2><div class="form-group"><label>رقم الطلب</label><input id="trackNumber" placeholder="مثال: 100001"></div><div class="form-group"><label>رقم التليفون</label><input id="trackPhone" placeholder="01xxxxxxxxx"></div><button class="btn-submit" onclick="trackOrder()">بحث عن الطلب</button><div id="trackResult" class="track-result"></div></div></div>
+    <div id="favoritesModal" class="modal-overlay"><div class="modal-content wide-modal"><button class="modal-close" onclick="closeModal('favoritesModal')"><i class="fa-solid fa-xmark"></i></button><h2><i class="fa-solid fa-heart"></i> المفضلة</h2><div id="favoritesContainer"></div></div></div>
+    <div id="historyModal" class="modal-overlay"><div class="modal-content wide-modal"><button class="modal-close" onclick="closeModal('historyModal')"><i class="fa-solid fa-xmark"></i></button><h2><i class="fa-solid fa-clock-rotate-left"></i> طلباتي السابقة</h2><div id="historyContainer"></div></div></div>
+    <div id="adminDashboardModal" class="modal-overlay"><div class="modal-content wide-modal"><button class="modal-close" onclick="closeModal('adminDashboardModal')"><i class="fa-solid fa-xmark"></i></button><h2><i class="fa-solid fa-chart-line"></i> لوحة إدارة الصيدلية</h2><div id="dashboardContainer"></div></div></div>
+    <div id="offersModal" class="modal-overlay"><div class="modal-content"><button class="modal-close" onclick="closeModal('offersModal')"><i class="fa-solid fa-xmark"></i></button><h2><i class="fa-solid fa-tags"></i> العروض والكوبونات</h2><div id="offersContainer"></div></div></div>
+
+    <div id="orderSuccessModal" class="modal-overlay"><div class="modal-content order-success-modal"><button class="modal-close" onclick="closeModal('orderSuccessModal')"><i class="fa-solid fa-xmark"></i></button><div style="text-align:center"><div class="success-icon"><i class="fa-solid fa-circle-check"></i></div><h2>تم استلام طلبك بنجاح 🎉</h2><p id="successOrderText"></p><div id="successOrderSummary" class="dash-panel" style="text-align:right"></div><div class="hero-actions" style="justify-content:center;margin-top:14px"><button class="hero-btn" onclick="printLastInvoice()"><i class="fa-solid fa-print"></i> طباعة الفاتورة</button><button class="hero-btn secondary" onclick="openTrackModal();closeModal('orderSuccessModal')"><i class="fa-solid fa-location-dot"></i> تتبع الطلب</button></div></div></div></div>
 
     <footer>
         جميع الحقوق محفوظة لصيدلية خالد محمد رجب &copy; 2026
@@ -737,13 +935,8 @@
         let allMedicines = [];
         let currentCategory = 'all';
         let cart = [];
-        
-        let storeMeta = JSON.parse(localStorage.getItem('khaled_pharmacy_v3') || '{}');
-        storeMeta.favorites = storeMeta.favorites || [];
-        storeMeta.stock = storeMeta.stock || {};
-        storeMeta.codes = storeMeta.codes || {};
-        function saveMeta() { localStorage.setItem('khaled_pharmacy_v3', JSON.stringify(storeMeta)); }
 
+        // المظهر الليلي
         function toggleTheme() {
             const body = document.body;
             const themeIcon = document.getElementById('themeIcon');
@@ -757,6 +950,7 @@
                 localStorage.setItem('theme', 'light');
             }
         }
+
         if (localStorage.getItem('theme') === 'dark') {
             document.body.setAttribute('data-theme', 'dark');
             document.getElementById('themeIcon').className = 'fa-solid fa-sun';
@@ -775,74 +969,41 @@
             renderMedicines(allMedicines);
         }
 
-        function getProductCode(m) { return storeMeta.codes[m.id] || m.code || `MED-${m.id}`; }
-        function getStock(m) { return storeMeta.stock[m.id] !== undefined ? storeMeta.stock[m.id] : 20; }
-        function isFavorite(id) { return storeMeta.favorites.includes(String(id)); }
-        function toggleFavorite(id) {
-            id = String(id);
-            if (storeMeta.favorites.includes(id)) storeMeta.favorites = storeMeta.favorites.filter(x => x !== id);
-            else storeMeta.favorites.push(id);
-            saveMeta();
-            filterMedicines();
-        }
+        function getProductCode(m) { return String(storeMeta.codes?.[m.id] || m.code || '').trim(); }
+        function normalizeProductCode(code) { return String(code || '').trim().toLowerCase(); }
+        function codeExists(code, exceptId) { const c=normalizeProductCode(code); return !!c && allMedicines.some(m=>String(m.id)!==String(exceptId||'') && normalizeProductCode(getProductCode(m))===c); }
 
         function renderMedicines(medicines) {
-            const container = document.getElementById('medicinesContainer'); 
-            container.innerHTML = '';
-            if (!medicines.length) {
-                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-prescription-bottle-medical"></i><p>لا توجد منتجات مطابقة للبحث.</p></div>';
-                return;
-            }
-            medicines.forEach(med => {
-                const stock = getStock(med);
-                const code = getProductCode(med);
-                const desc = med.description || '';
-                
-                // شرط عدم إظهار السعر القديم إذا كان مساوياً أو أقل من السعر الحالي
-                const hasValidSale = med.old_price && Number(med.old_price) > Number(med.price);
-                const oldPriceHtml = hasValidSale ? `<span class="old-price">${med.old_price} ج.م</span>` : '';
-                const saleBadge = hasValidSale ? `<div class="sale-badge">عرض<br>خاص</div>` : '';
-                
-                let stockClass = stock <= 0 ? 'out' : (stock <= 5 ? 'low' : '');
-                let stockText = stock <= 0 ? 'نفد المخزون' : (stock <= 5 ? `متبقي ${stock}` : `متوفر ${stock}`);
-
-                const card = document.createElement('div'); 
-                card.className = 'medicine-card';
-                card.innerHTML = `
-                    <span class="stock-badge ${stockClass}">${stockText}</span>
-                    ${saleBadge}
-                    <img src="${med.image_url}" alt="${med.name}" class="medicine-img">
-                    <div class="medicine-info">
-                        <div class="medicine-title-row">
-                            <div class="medicine-name">${med.name}</div>
-                            <button class="fav-btn-inline ${isFavorite(med.id)?'active':''}" onclick="toggleFavorite('${med.id}')"><i class="fa-${isFavorite(med.id)?'solid':'regular'} fa-heart"></i></button>
-                        </div>
-                        <div class="product-code-small"><i class="fa-solid fa-barcode"></i> الكود: ${code}</div>
-                        <div class="medicine-desc-preview">${desc}</div>
-                        <div class="price-container">
-                            <span class="medicine-price">${med.price} ج.م</span>
-                            ${oldPriceHtml}
-                        </div>
-                        <div class="card-actions">
-                            <button onclick='addToCart(${JSON.stringify(med)})' class="btn-buy" ${stock <= 0 ? 'disabled' : ''}><i class="fa-solid fa-cart-plus"></i> أضف للسلة</button>
-                            <button onclick='openDetailsModal(${JSON.stringify(med.name)}, ${JSON.stringify(med.price)}, ${JSON.stringify(desc)}, ${JSON.stringify(med.image_url)}, ${JSON.stringify(code)})' class="btn-details"><i class="fa-solid fa-info"></i> تفاصيل</button>
-                        </div>
-                    </div>`;
+            const container = document.getElementById('medicinesContainer'); container.innerHTML='';
+            if (!medicines.length){container.innerHTML='<div class="empty-state"><i class="fa-solid fa-prescription-bottle-medical"></i><p>لا توجد منتجات مطابقة للبحث.</p></div>';return;}
+            medicines.forEach(med=>{
+                const desc=med.description||'', oldPrice=(med.old_price && Number(med.old_price)!==Number(med.price))?`<span class="old-price">${med.old_price} ج.م</span>`:'', saleBadge=(med.old_price && Number(med.old_price)!==Number(med.price))?`<div class="sale-badge">عرض<br>خاص</div>`:'';
+                const stock=getStock(med), fav=isFavorite(med.id), unavailable=stock<=0||isExpired(med);
+                const card=document.createElement('div'); card.className='medicine-card';
+                card.innerHTML=`${saleBadge}<img src="${med.image_url}" alt="${safeText(med.name)}" class="medicine-img">
+                <div class="medicine-info"><div style="display:flex;align-items:center;justify-content:space-between;gap:6px"><div class="medicine-name">${safeText(med.name)}</div><button class="favorite-btn" onclick="toggleFavorite('${med.id}',event)" title="المفضلة"><i class="${fav?'fa-solid':'fa-regular'} fa-heart"></i></button></div>
+                <div class="product-code-line"><i class="fa-solid fa-barcode"></i> كود: ${safeText(getProductCode(med)||'بدون كود')}</div><div class="medicine-desc-preview">${safeText(desc)}</div>
+                <div class="price-container"><span class="medicine-price">${med.price} ج.م</span>${oldPrice}</div>
+                ${unavailable?`<div class="stock-out-msg">${isExpired(med)?'منتهي الصلاحية':'نفد المخزون'}</div>`:`<div class="qty-row"><button onclick="changeCardQty('${med.id}',-1)">−</button><span id="qty-${med.id}">1</span><button onclick="changeCardQty('${med.id}',1)">+</button><small>متاح: ${stock}</small></div>`}
+                <div class="card-actions"><button onclick='buyNow(${JSON.stringify(med)})' class="btn-buy" ${unavailable?'disabled':''}><i class="fa-solid fa-bolt"></i> اشترِ الآن</button><button onclick='addToCart(${JSON.stringify(med)})' class="btn-details" ${unavailable?'disabled':''}><i class="fa-solid fa-cart-plus"></i> أضف للسلة</button><button onclick="openDetailsModal('${String(med.name).replace(/'/g,"\\'")}', '${med.price}', \`${String(desc).replace(/`/g,'\\`')}\`, '${med.image_url}')" class="btn-details"><i class="fa-solid fa-info"></i> تفاصيل</button></div></div>`;
                 container.appendChild(card);
             });
         }
+        function changeCardQty(id,delta){const e=document.getElementById('qty-'+id);if(!e)return;const m=allMedicines.find(x=>String(x.id)===String(id));let n=Math.max(1,Math.min(getStock(m),Number(e.textContent)+delta));e.textContent=n;}
+        function buyNow(med){if(getStock(med)<=0||isExpired(med))return;cart=[];cart.push({...med,qty:1});updateCartUI();openCartModal();}
 
+        // البحث الفوري
         function filterMedicines() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = allMedicines.filter(m => {
-                const code = getProductCode(m).toLowerCase();
-                const matchesQuery = m.name.toLowerCase().includes(query) || code.includes(query) || (m.description && m.description.toLowerCase().includes(query));
+                const matchesQuery = m.name.toLowerCase().includes(query) || (m.description && m.description.toLowerCase().includes(query)) || getProductCode(m).toLowerCase().includes(query);
                 const matchesCat = currentCategory === 'all' || m.category === currentCategory;
                 return matchesQuery && matchesCat;
             });
             renderMedicines(filtered);
         }
 
+        // التصنيفات
         function filterByCategory(cat, btn) {
             currentCategory = cat;
             document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
@@ -850,11 +1011,10 @@
             filterMedicines();
         }
 
+        // السلة
         function addToCart(med) {
-            if (getStock(med) <= 0) { alert('المنتج نفد من المخزون.'); return; }
             const existing = cart.find(item => item.id === med.id);
             if (existing) {
-                if (existing.qty >= getStock(med)) { alert('الكمية المطلوبة تتجاوز المتاح بالمخزن.'); return; }
                 existing.qty += 1;
             } else {
                 cart.push({ ...med, qty: 1 });
@@ -877,6 +1037,7 @@
         function openCartModal() {
             const container = document.getElementById('cartItemsContainer');
             const checkoutForm = document.getElementById('cartCheckoutForm');
+            
             if (cart.length === 0) {
                 container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:1rem;">سلة المشتريات فارغة حالياً.</p>`;
                 document.getElementById('cartTotalText').textContent = 'الإجمالي: 0 ج.م';
@@ -895,7 +1056,8 @@
                                 <button onclick="changeQty(${index}, -1)" style="padding:2px 8px; cursor:pointer;">-</button>
                                 <button onclick="removeFromCart(${index})" style="color:red; background:none; border:none; margin-right:8px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
                             </div>
-                        </div>`;
+                        </div>
+                    `;
                 });
                 document.getElementById('cartTotalText').textContent = `الإجمالي الكلي: ${total} ج.م`;
                 checkoutForm.style.display = 'block';
@@ -916,7 +1078,18 @@
             openCartModal();
         }
 
-        async function submitCartOrder(e) {
+        async function generateNumericOrderNumber(){
+  try{
+    const {data}=await _supabase.from('orders').select('order_number').limit(1000);
+    const nums=(data||[]).map(o=>String(o.order_number||'').replace(/\D/g,'')).map(Number).filter(n=>Number.isFinite(n)&&n>0);
+    const next=Math.max(100000,...nums)+1;
+    return String(next);
+  }catch(e){
+    return String(Date.now()).slice(-8);
+  }
+}
+
+async function submitCartOrder(e) {
             e.preventDefault();
             if (cart.length === 0) return;
 
@@ -942,33 +1115,30 @@
 
             if (error) { alert('خطأ في إرسال الطلب: ' + error.message); return; }
 
-            // خصم الكميات من المخزون المحلي
-            cart.forEach(item => {
-                let currentStock = getStock(item);
-                storeMeta.stock[item.id] = Math.max(0, currentStock - item.qty);
-            });
-            saveMeta();
-
             cart = [];
             updateCartUI();
             closeModal('cartModal');
-            fetchMedicines();
             alert(`✅ تم إرسال طلبك بنجاح برقم (${orderNum})!`);
         }
 
-        function openPrescriptionModal() { document.getElementById('prescriptionModal').style.display = 'flex'; }
+        // اطلب روشتة
+        function openPrescriptionModal() {
+            document.getElementById('prescriptionModal').style.display = 'flex';
+        }
+
         async function submitPrescriptionOrder(e) {
             e.preventDefault();
             const name = document.getElementById('pName').value;
             const phone = document.getElementById('pPhone').value;
             const notes = document.getElementById('pNotes').value;
             const imageFile = document.getElementById('pImage').files[0];
-            const orderNum = 'PRES-' + Math.floor(100000 + Math.random() * 900000);
+            const orderNum = await generateNumericOrderNumber();
 
             try {
                 const fileName = `${Date.now()}_${imageFile.name}`;
                 await _supabase.storage.from('medicines-images').upload(fileName, imageFile);
-                
+                const { data: pubUrl } = _supabase.storage.from('medicines-images').getPublicUrl(fileName);
+
                 await _supabase.from('orders').insert([{
                     order_number: orderNum,
                     product_name: `روشتة/طلب خاص: ${notes}`,
@@ -976,133 +1146,186 @@
                     client_name: name,
                     client_phone: phone,
                     client_address: 'طلب روشتة - مرفق الصورة',
-                    payment_method: 'عند الاستلام',
+                    payment_method: 'عند الاستلام أو الاتصال',
                     status: 'مراجعة الروشتة'
                 }]);
 
                 closeModal('prescriptionModal');
-                alert(`✅ تم رفع روشتتك برقم (${orderNum}) وسنتواصل معك فوراً.`);
+                alert(`✅ تم رفع روشتتك بنجاح برقم (${orderNum}) وسنتواصل معك فوراً.`);
             } catch (err) {
                 alert('حدث خطأ: ' + err.message);
             }
         }
 
-        function openDetailsModal(name, price, desc, img, code) {
+        function openDetailsModal(name, price, desc, img) {
             document.getElementById('modalImg').src = img;
             document.getElementById('modalTitle').textContent = name;
-            document.getElementById('modalCode').textContent = `كود المنتج: ${code}`;
             document.getElementById('modalPrice').textContent = price + ' جنيه مصري';
             document.getElementById('modalDesc').textContent = desc;
             document.getElementById('detailsModal').style.display = 'flex';
         }
 
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        
         function checkAdminForAdd() {
-            if (prompt("أدخل كلمة المرور للإدارة:") !== ADMIN_PASSWORD) { alert("كلمة المرور غير صحيحة"); return; }
+            if (prompt("أدخل كلمة المرور:") !== ADMIN_PASSWORD) { alert("خطأ"); return; }
             document.getElementById('addMedicineModal').style.display = 'flex';
         }
-
-        function openAdminDashboard() {
-            if (prompt("أدخل كلمة المرور للوصول للوحة التحكم:") !== ADMIN_PASSWORD) { alert("كلمة المرور غير صحيحة"); return; }
-            renderAdminProductsList();
-            document.getElementById('adminDashboardModal').style.display = 'flex';
+        function checkAdminForOrders() {
+            if (prompt("أدخل كلمة المرور:") !== ADMIN_PASSWORD) { alert("خطأ"); return; }
+            fetchOrders();
+            document.getElementById('ordersModal').style.display = 'flex';
         }
 
-        // عرض قائمة المنتجات في لوحة التحكم للبحث السريع، التعديل أو الحذف
-        function renderAdminProductsList() {
-            const query = (document.getElementById('adminSearchInput')?.value || '').toLowerCase();
-            const tbody = document.getElementById('adminProductsTableBody');
-            tbody.innerHTML = '';
-
-            const filtered = allMedicines.filter(m => {
-                const code = getProductCode(m).toLowerCase();
-                return m.name.toLowerCase().includes(query) || code.includes(query);
+        async function fetchOrders() {
+            const container = document.getElementById('ordersContainer');
+            const { data, error } = await _supabase.from('orders').select('*').order('id', { ascending: false });
+            if (error || !data.length) { container.innerHTML = '<p style="text-align:center">لا توجد طلبات</p>'; return; }
+            
+            container.innerHTML = '';
+            data.forEach(o => {
+                container.innerHTML += `
+                    <div class="custom-order-card">
+                        <div class="order-card-header">
+                            <select class="order-status-select" onchange="updateOrderStatus('${o.id}', this.value)">
+                                <option value="قيد المعالجة (بيتجهز)" ${o.status === 'قيد المعالجة (بيتجهز)' ? 'selected' : ''}>⏳ قيد المعالجة (بيتجهز)</option>
+                                <option value="جاري التوصيل" ${o.status === 'جاري التوصيل' ? 'selected' : ''}>🚚 جاري التوصيل</option>
+                                <option value="تم التوصيل" ${o.status === 'تم التوصيل' ? 'selected' : ''}>✅ تم التوصيل</option>
+                                <option value="ملغي" ${o.status === 'ملغي' ? 'selected' : ''}>❌ ملغي</option>
+                            </select>
+                            <span class="order-id-text">رقم الطلب: ${o.order_number}</span>
+                        </div>
+                        <div class="order-card-body">
+                            <div class="order-info-col">
+                                <div class="order-info-row"><span class="order-label">اسم العميل:</span> <span class="order-value">${o.client_name}</span></div>
+                                <div class="order-info-row"><span class="order-label">التليفون:</span> <span class="order-value">${o.client_phone}</span></div>
+                                <div class="order-info-row"><span class="order-label">العنوان:</span> <span class="order-value">${o.client_address}</span></div>
+                            </div>
+                            <div class="order-info-col">
+                                <div class="order-info-row"><span class="order-label">المنتج:</span> <span class="order-value">${o.product_name} (${o.product_price} ج.م)</span></div>
+                                <div class="order-info-row"><span class="order-label">الدفع:</span> <span class="order-value">${o.payment_method}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
             });
+        }
 
-            if (!filtered.length) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--text-muted);">لا توجد منتجات مطابقة.</td></tr>`;
+        async function updateOrderStatus(id, newStatus) {
+            const { error } = await _supabase.from('orders').update({ status: newStatus }).eq('id', id);
+            if (error) {
+                alert('حدث خطأ أثناء تحديث الحالة');
+            }
+        }
+
+        function openEditProduct(id){
+            if(prompt("كلمة المرور:")!==ADMIN_PASSWORD)return;
+            const m=allMedicines.find(x=>String(x.id)===String(id));
+            if(!m)return;
+            let modal=document.getElementById('editProductModal');
+            if(!modal){
+                modal=document.createElement('div');
+                modal.id='editProductModal';
+                modal.className='modal-overlay';
+                modal.innerHTML=`<div class="modal-content wide-modal">
+                    <button class="modal-close" onclick="closeModal('editProductModal')"><i class="fa-solid fa-xmark"></i></button>
+                    <h2><i class="fa-solid fa-pen-to-square"></i> تعديل المنتج</h2>
+                    <form id="editProductForm">
+                        <div class="form-group"><label>اسم المنتج</label><input id="editName" required></div>
+                        <div class="form-group"><label><i class="fa-solid fa-barcode"></i> كود المنتج</label><input id="editCode" required autocomplete="off"></div>
+                        <div class="form-group"><label>السعر الحالي (جنيه)</label><input id="editPrice" type="number" step="0.25" required></div>
+                        <div class="form-group"><label>السعر القديم (اختياري للعرض)</label><input id="editOldPrice" type="number" step="0.25"></div>
+                        <div class="form-group"><label>الكمية المتاحة</label><input id="editStock" type="number" min="0" step="1" required></div>
+                        <div class="form-group"><label>الصورة الجديدة (اختياري — اتركها فارغة للحفاظ على الصورة الحالية)</label><input id="editImage" type="file" accept="image/*" style="padding:.5rem"></div>
+                        <div class="form-group"><label>الوصف</label><textarea id="editDesc" rows="3" required></textarea></div>
+                        <div id="editProductStatus" style="margin:8px 0;color:var(--text-muted)"></div>
+                        <button type="submit" class="btn-submit"><i class="fa-solid fa-floppy-disk"></i> حفظ التعديلات</button>
+                    </form>
+                </div>`;
+                document.body.appendChild(modal);
+                document.getElementById('editProductForm').addEventListener('submit', saveEditedProduct);
+            }
+            document.getElementById('editName').value=m.name||'';
+            document.getElementById('editCode').value=getProductCode(m);
+            document.getElementById('editPrice').value=m.price??'';
+            document.getElementById('editOldPrice').value=(m.old_price??'');
+            document.getElementById('editStock').value=getStock(m);
+            document.getElementById('editDesc').value=m.description||'';
+            document.getElementById('editImage').value='';
+            document.getElementById('editProductStatus').textContent='الصورة الحالية محفوظة. يمكنك اختيار صورة جديدة فقط إذا أردت تغييرها.';
+            modal.dataset.productId=String(id);
+            modal.style.display='flex';
+        }
+
+        async function saveEditedProduct(e){
+            e.preventDefault();
+            const modal=document.getElementById('editProductModal');
+            const id=modal.dataset.productId;
+            const m=allMedicines.find(x=>String(x.id)===String(id));
+            if(!m)return;
+            const name=document.getElementById('editName').value.trim();
+            const code=document.getElementById('editCode').value.trim();
+            const price=Number(document.getElementById('editPrice').value);
+            const oldRaw=document.getElementById('editOldPrice').value.trim();
+            const stock=Number(document.getElementById('editStock').value);
+            const desc=document.getElementById('editDesc').value.trim();
+            const file=document.getElementById('editImage').files[0];
+            const status=document.getElementById('editProductStatus');
+
+            if(!name||!code||!Number.isFinite(price)||price<0||!Number.isInteger(stock)||stock<0){
+                alert('راجع الاسم والكود والسعر والكمية.');
                 return;
             }
+            if(codeExists(code,id)){alert('هذا الكود مستخدم بالفعل لمنتج آخر.');return;}
 
-            filtered.forEach(m => {
-                const code = getProductCode(m);
-                const stock = getStock(m);
-                tbody.innerHTML += `
-                    <tr>
-                        <td><b>${code}</b></td>
-                        <td><img src="${m.image_url}" style="width:36px; height:36px; object-fit:cover; border-radius:6px;"></td>
-                        <td>${m.name}</td>
-                        <td>${m.price} ج.م</td>
-                        <td>${stock}</td>
-                        <td>
-                            <button onclick="adminEditProduct('${m.id}')" style="background:var(--primary); color:#fff; border:none; padding:5px 10px; border-radius:6px; cursor:pointer;"><i class="fa-solid fa-pen"></i> تعديل</button>
-                            <button onclick="adminDeleteProduct('${m.id}')" style="background:#ef4444; color:#fff; border:none; padding:5px 10px; border-radius:6px; cursor:pointer; margin-right:5px;"><i class="fa-solid fa-trash"></i> حذف</button>
-                        </td>
-                    </tr>`;
-            });
+            const updates={name,price,old_price:oldRaw!==''?Number(oldRaw):null,description:desc};
+            if(updates.old_price!==null && updates.old_price===price) updates.old_price=null;
+
+            try{
+                status.textContent='جاري حفظ التعديلات...';
+                if(file){
+                    const fileName=`${Date.now()}_${file.name}`;
+                    const {error:uploadError}=await _supabase.storage.from('medicines-images').upload(fileName,file);
+                    if(uploadError)throw new Error('خطأ في رفع الصورة: '+uploadError.message);
+                    const {data:pub}=_supabase.storage.from('medicines-images').getPublicUrl(fileName);
+                    updates.image_url=pub.publicUrl;
+                }
+                const {error}=await _supabase.from('medicines').update(updates).eq('id',id);
+                if(error)throw error;
+
+                storeMeta.codes[id]=code;
+                storeMeta.stock[id]=stock;
+                saveMeta();
+                closeModal('editProductModal');
+                await fetchMedicines();
+                alert('✅ تم تعديل المنتج بنجاح.');
+            }catch(err){
+                status.textContent='حدث خطأ أثناء الحفظ.';
+                alert('تعذر تعديل المنتج: '+err.message);
+            }
         }
 
-        async function adminEditProduct(id) {
-            const m = allMedicines.find(x => String(x.id) === String(id));
-            if (!m) return;
+        async function editMedicine(id, name, price, oldPrice, desc, code) {
+            openEditProduct(id);
+        }
 
-            const newName = prompt("تعديل اسم المنتج:", m.name);
-            if (newName === null) return;
-            const newCode = prompt("تعديل كود المنتج:", getProductCode(m));
-            if (newCode === null) return;
-            const newPrice = prompt("تعديل السعر الحالي:", m.price);
-            if (newPrice === null) return;
-            const newOldPrice = prompt("تعديل السعر القديم (اتركه فارغاً إذا لم يوجد خصم):", m.old_price || '');
-            const newStock = prompt("تعديل الكمية بالمخزن:", getStock(m));
-            if (newStock === null) return;
-            const newDesc = prompt("تعديل وصف المنتج:", m.description || '');
-
-            // حفظ الكود الجديد محلياً
-            storeMeta.codes[m.id] = newCode.trim();
-            storeMeta.stock[m.id] = parseInt(newStock) || 0;
+        async function deleteMedicine(id, img) {
+            if (prompt("كلمة المرور:") !== ADMIN_PASSWORD) return;
+            const m=allMedicines.find(x=>String(x.id)===String(id));
+            if(!m)return;
+            if(!confirm(`هل أنت متأكد من حذف المنتج "${m.name}"؟\nسيتم حذف المنتج نهائياً من المتجر.`))return;
+            const {error}=await _supabase.from('medicines').delete().eq('id', id);
+            if(error){alert('حدث خطأ أثناء حذف المنتج: '+error.message);return;}
+            delete storeMeta.codes[id];
+            delete storeMeta.stock[id];
+            delete storeMeta.expiry[id];
+            storeMeta.favorites=(storeMeta.favorites||[]).filter(x=>String(x)!==String(id));
             saveMeta();
-
-            // التحديث في قاعدة بيانات Supabase
-            const { error } = await _supabase.from('medicines').update({
-                name: newName,
-                price: parseFloat(newPrice) || 0,
-                old_price: newOldPrice ? parseFloat(newOldPrice) : null,
-                description: newDesc
-            }).eq('id', m.id);
-
-            if (error) {
-                alert("حدث خطأ أثناء التحديث: " + error.message);
-            } else {
-                alert("✅ تم تعديل المنتج بنجاح!");
-                fetchMedicines();
-                renderAdminProductsList();
-            }
+            await fetchMedicines();
+            if(document.getElementById('adminDashboardModal')?.style.display==='flex') await loadAdminDashboard();
+            alert('✅ تم حذف المنتج.');
         }
 
-        async function adminDeleteProduct(id) {
-            if (!confirm("هل أنت متأكد من حذف هذا المنتج نهائياً؟")) return;
-            const { error } = await _supabase.from('medicines').delete().eq('id', id);
-            if (error) {
-                alert("خطأ أثناء الحذف: " + error.message);
-            } else {
-                alert("🗑️ تم حذف المنتج بنجاح.");
-                fetchMedicines();
-                renderAdminProductsList();
-            }
-        }
-
-        function openFavoritesModal() {
-            const fav = allMedicines.filter(m => isFavorite(m.id));
-            const c = document.getElementById('favoritesContainer');
-            c.innerHTML = fav.length ? '<div class="medicines-grid">' + fav.map(m => `<div class="card" style="padding:15px;"><b>${m.name}</b><p>${m.price} ج.م</p><button class="btn-buy" onclick='addToCart(${JSON.stringify(m)});closeModal("favoritesModal")'>أضف للسلة</button></div>`).join('') + '</div>' : '<div class="empty-state">لا توجد منتجات في المفضلة.</div>';
-            document.getElementById('favoritesModal').style.display = 'flex';
-        }
-
-        function contactWhatsApp() { window.open('https://wa.me/201092143626?text=' + encodeURIComponent('السلام عليكم، أريد الاستفسار عن منتج من صيدلية خالد محمد رجب'), '_blank'); }
-        function callPharmacy() { window.location.href = 'tel:01092143626'; }
-
-        // إضافة دواء جديد مع خانة الكود والكمية
+        // كود معالجة وإضافة الدواء مع إظهار الأخطاء إن وجدت
         document.getElementById('medicineForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             if (document.getElementById('adminPassword').value !== ADMIN_PASSWORD) { 
@@ -1112,17 +1335,25 @@
             
             const name = document.getElementById('medName').value;
             const code = document.getElementById('medCode').value.trim();
+            if(!code) { alert('اكتب كود المنتج.'); return; }
+            if(codeExists(code)) { alert('كود المنتج مستخدم بالفعل.'); return; }
             const category = document.getElementById('medCategory').value;
             const price = document.getElementById('medPrice').value;
             const oldPrice = document.getElementById('medOldPrice').value;
-            const stock = document.getElementById('medStock').value;
             const desc = document.getElementById('medDesc').value;
             const file = document.getElementById('medImage').files[0];
 
             try {
                 const fileName = `${Date.now()}_${file.name}`;
-                const { error: uploadError } = await _supabase.storage.from('medicines-images').upload(fileName, file);
-                if (uploadError) { alert("خطأ في رفع الصورة: " + uploadError.message); return; }
+                
+                const { data: uploadData, error: uploadError } = await _supabase.storage
+                    .from('medicines-images')
+                    .upload(fileName, file);
+
+                if (uploadError) {
+                    alert("خطأ في رفع الصورة: " + uploadError.message);
+                    return;
+                }
 
                 const { data: pub } = _supabase.storage.from('medicines-images').getPublicUrl(fileName);
 
@@ -1133,21 +1364,17 @@
                     old_price: oldPrice ? parseFloat(oldPrice) : null, 
                     description: desc, 
                     image_url: pub.publicUrl
-                }]).select();
+                }]);
 
                 if (insertError) {
-                    alert("خطأ في حفظ الدواء: " + insertError.message);
+                    alert("خطأ في حفظ الدواء في القاعدة: " + insertError.message);
                     return;
                 }
-
-                if (insertData && insertData[0]) {
-                    storeMeta.codes[insertData[0].id] = code;
-                    storeMeta.stock[insertData[0].id] = parseInt(stock) || 20;
-                    saveMeta();
-                }
+                if(insertData?.[0]?.id){ storeMeta.codes[insertData[0].id]=code; saveMeta(); }
 
                 closeModal('addMedicineModal');
                 this.reset();
+                document.getElementById('medCode').value='';
                 document.getElementById('uploadText').textContent = 'اضغط هنا لرفع الصورة';
                 fetchMedicines();
                 alert("✅ تم إضافة المنتج بنجاح!");
@@ -1157,7 +1384,280 @@
             }
         });
 
+        // تشغيل الجلب عند فتح الصفحة
         fetchMedicines();
-    </script>
+
+        /* ===== وظائف النسخة الاحترافية ===== */
+        const STORE_KEY='khaled_pharmacy_v2';
+        let storeMeta=JSON.parse(localStorage.getItem(STORE_KEY)||'{}');
+        storeMeta.favorites=storeMeta.favorites||[]; storeMeta.stock=storeMeta.stock||{}; storeMeta.expiry=storeMeta.expiry||{}; storeMeta.codes=storeMeta.codes||{}; storeMeta.history=storeMeta.history||[]; storeMeta.coupon='';
+        function saveMeta(){localStorage.setItem(STORE_KEY,JSON.stringify(storeMeta));}
+        function getStock(m){return storeMeta.stock[m.id] ?? 20}
+        function isExpired(m){let d=storeMeta.expiry[m.id]; return d && new Date(d)<new Date()}
+        function toggleFavorite(id){id=String(id); if(storeMeta.favorites.includes(id)) storeMeta.favorites=storeMeta.favorites.filter(x=>x!==id); else storeMeta.favorites.push(id); saveMeta(); filterMedicines();}
+        function isFavorite(id){return storeMeta.favorites.includes(String(id))}
+        function safeText(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+        function renderMedicines(medicines){const container=document.getElementById('medicinesContainer');container.innerHTML='';if(!medicines.length){container.innerHTML='<div class="empty-state"><i class="fa-solid fa-prescription-bottle-medical"></i><p>لا توجد منتجات مطابقة.</p></div>';return;}medicines.forEach(med=>{const stock=getStock(med),expired=isExpired(med),low=stock>0&&stock<=5;let cls=expired||stock<=0?'out':low?'low':'';let txt=expired?'منتهي الصلاحية':stock<=0?'غير متوفر':low?`متبقي ${stock}`:`متوفر ${stock}`;const old=(med.old_price && Number(med.old_price)!==Number(med.price))?`<span class="old-price">${med.old_price} ج.م</span>`:'';const sale=(med.old_price && Number(med.old_price)!==Number(med.price))?'<div class="sale-badge">عرض<br>خاص</div>':'';const code=getProductCode(med);const card=document.createElement('div');card.className='medicine-card';card.innerHTML=`<span class="stock-badge ${cls}">${txt}</span><img src="${safeText(med.image_url)}" alt="${safeText(med.name)}" class="medicine-img"><div class="medicine-info"><div class="medicine-title-row"><div class="medicine-name">${safeText(med.name)} ${sale}</div><button class="fav-btn-inline ${isFavorite(med.id)?'active':''}" onclick="toggleFavorite('${med.id}')" title="${isFavorite(med.id)?'إزالة من المفضلة':'إضافة للمفضلة'}"><i class="fa-${isFavorite(med.id)?'solid':'regular'} fa-heart"></i></button></div><div class="product-code-small"><i class="fa-solid fa-barcode"></i> ${safeText(code||'بدون كود')}</div><div class="medicine-desc-preview">${safeText(med.description||'')}</div><div class="price-container"><span class="medicine-price">${med.price} ج.م</span>${old}</div><div class="card-actions"><button onclick='addToCart(${JSON.stringify(med)})' class="btn-buy" ${stock<=0||expired?'disabled':''}><i class="fa-solid fa-cart-plus"></i> سلة</button><button onclick='openDetailsModal(${JSON.stringify(med.name)},${JSON.stringify(med.price)},${JSON.stringify(med.description||'')},${JSON.stringify(med.image_url)})' class="btn-details"><i class="fa-solid fa-info"></i> تفاصيل</button>${stock<=0&&!expired?`<button onclick="requestRestock('${med.id}')" class="btn-details"><i class="fa-regular fa-bell"></i> نبّهني عند التوفر</button>`:''}</div></div>`;container.appendChild(card)})}
+        function addToCart(med){if(isExpired(med)||getStock(med)<=0){alert('المنتج غير متاح حالياً.');return}const e=cart.find(i=>i.id===med.id);if(e){if(e.qty>=getStock(med)){alert('الكمية المتاحة غير كافية.');return}e.qty++}else cart.push({...med,qty:1});updateCartUI();}
+        function applyCoupon(){const code=(document.getElementById('couponInput').value||'').trim().toUpperCase();const r=document.getElementById('couponResult');if(code==='WELCOME10'){storeMeta.coupon=code;r.textContent='✅ تم تطبيق خصم 10%';r.style.color='var(--accent)'}else if(code==='DELIVERYFREE'){storeMeta.coupon=code;r.textContent='✅ التوصيل مجاناً';r.style.color='var(--accent)'}else{storeMeta.coupon='';r.textContent='❌ الكود غير صحيح';r.style.color='#dc2626'}saveMeta();recalculateCart()}
+        function deliveryFee(){const a=document.getElementById('cArea')?.value||'داخل المدينة';return storeMeta.coupon==='DELIVERYFREE'?0:(a==='قرية / ضواحي'?20:a==='خارج النطاق'?35:10)}
+        function recalculateCart(){let subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0);let discount=storeMeta.coupon==='WELCOME10'?subtotal*.1:0;let fee=cart.length?deliveryFee():0;let total=Math.max(0,subtotal-discount+fee);document.getElementById('cartTotalText').textContent=`الإجمالي: ${total.toFixed(2)} ج.م`;document.getElementById('deliveryNote').textContent=`المنتجات: ${subtotal.toFixed(2)} ج.م | الخصم: ${discount.toFixed(2)} ج.م | التوصيل: ${fee.toFixed(2)} ج.م`;return {subtotal,discount,fee,total}}
+        function openCartModal(){const c=document.getElementById('cartItemsContainer'),f=document.getElementById('cartCheckoutForm');if(!cart.length){c.innerHTML='<p style="text-align:center;color:var(--text-muted);padding:1rem">السلة فارغة حالياً.</p>';f.style.display='none';document.getElementById('cartTotalText').textContent='الإجمالي: 0 ج.م'}else{c.innerHTML=cart.map((i,n)=>`<div class="cart-item-row"><div><strong>${safeText(i.name)}</strong><br><small>${i.price} ج.م × ${i.qty}</small></div><div><button onclick="changeQty(${n},1)">+</button><span style="margin:0 8px">${i.qty}</span><button onclick="changeQty(${n},-1)">−</button><button onclick="removeFromCart(${n})" style="color:red;background:none;border:0;margin-right:8px"><i class="fa-solid fa-trash"></i></button></div></div>`).join('');f.style.display='block';recalculateCart()}document.getElementById('cartModal').style.display='flex'}
+        function changeQty(i,d){const max=getStock(cart[i]);cart[i].qty+=d;if(cart[i].qty>max)cart[i].qty=max;if(cart[i].qty<=0)cart.splice(i,1);updateCartUI();openCartModal()}
+        function removeFromCart(i){cart.splice(i,1);updateCartUI();openCartModal()}
+        async function submitCartOrder(e){e.preventDefault();if(!cart.length)return;const name=document.getElementById('cName').value,phone=document.getElementById('cPhone').value,address=document.getElementById('cAddress').value,payment=document.getElementById('cPayment').value;const area=document.getElementById('cArea').value;const calc=recalculateCart();const orderNum=await generateNumericOrderNumber();const summary=cart.map(i=>`${i.name} (×${i.qty})`).join(', ');const {error}=await _supabase.from('orders').insert([{order_number:orderNum,product_name:summary,product_price:calc.total,client_name:name,client_phone:phone,client_address:`${address} - ${area}`,payment_method:payment,status:'قيد المعالجة (بيتجهز)'}]);if(error){alert('خطأ في إرسال الطلب: '+error.message);return}cart.forEach(i=>{storeMeta.stock[i.id]=Math.max(0,getStock(i)-i.qty)});storeMeta.history.unshift({order_number:orderNum,phone,total:calc.total,date:new Date().toISOString(),items:summary,cart:cart.map(i=>({id:i.id,qty:i.qty}))});storeMeta.history=storeMeta.history.slice(0,30);saveMeta();cart=[];storeMeta.coupon='';updateCartUI();document.getElementById('couponInput').value='';closeModal('cartModal');alert(`✅ تم إرسال طلبك بنجاح برقم ${orderNum}\nاحتفظ بالرقم لتتبع الطلب.`)}
+        function openTrackModal(){document.getElementById('trackModal').style.display='flex';document.getElementById('trackResult').innerHTML=''}
+        async function trackOrder(){const num=document.getElementById('trackNumber').value.trim(),phone=document.getElementById('trackPhone').value.trim(),box=document.getElementById('trackResult');box.innerHTML='جاري البحث...';const {data,error}=await _supabase.from('orders').select('*').eq('order_number',num).eq('client_phone',phone).maybeSingle();if(error||!data){box.innerHTML='<div class="empty-state">لم نجد طلباً بهذه البيانات.</div>';return}const statuses=['قيد المعالجة (بيتجهز)','جاري التوصيل','تم التوصيل'],idx=statuses.indexOf(data.status);box.innerHTML=`<div class="dash-panel"><b>الطلب ${safeText(data.order_number)}</b><div class="timeline">${statuses.map((x,i)=>`<div class="step ${i<idx?'done':''} ${i===idx?'current':''}"><i class="fa-solid ${i===0?'fa-box':i===1?'fa-truck': 'fa-circle-check'}"></i><span>${x.replace(' (بيتجهز)','')}</span></div>`).join('')}</div><p><b>الحالة الحالية:</b> ${safeText(data.status)}</p><p><b>الإجمالي:</b> ${data.product_price} ج.م</p></div>`}
+        function openFavoritesModal(){const fav=allMedicines.filter(m=>isFavorite(m.id));const c=document.getElementById('favoritesContainer');c.innerHTML=fav.length?'<div class="medicines-grid">'+fav.map(m=>`<div class="dash-panel"><b>${safeText(m.name)}</b><p>${m.price} ج.م</p><button class="btn-buy" onclick='addToCart(${JSON.stringify(m)});closeModal("favoritesModal")'>أضف للسلة</button></div>`).join('')+'</div>':'<div class="empty-state">لا توجد منتجات في المفضلة.</div>';document.getElementById('favoritesModal').style.display='flex'}
+        function openHistoryModal(){const c=document.getElementById('historyContainer');c.innerHTML=storeMeta.history.length?storeMeta.history.map((o,idx)=>`<div class="mini-row"><span><b>${o.order_number}</b><br><small>${new Date(o.date).toLocaleString('ar-EG')}</small></span><span>${o.total} ج.م<br><button class="btn-details" onclick="reorderHistory(${idx})">إعادة الطلب</button></span></div>`).join(''):'<div class="empty-state">لا توجد طلبات محفوظة على هذا الجهاز.</div>';document.getElementById('historyModal').style.display='flex'}
+        function reorderHistory(index){const h=storeMeta.history[index];if(!h?.cart)return alert('هذا الطلب قديم ولا يحتوي تفاصيل قابلة لإعادة الطلب.');let added=0;h.cart.forEach(x=>{const m=allMedicines.find(y=>String(y.id)===String(x.id));if(m&&getStock(m)>0){const q=Math.min(x.qty,getStock(m));const e=cart.find(i=>i.id===m.id);if(e)e.qty=Math.min(e.qty+q,getStock(m));else cart.push({...m,qty:q});added+=q}});updateCartUI();closeModal('historyModal');openCartModal();if(!added)alert('المنتجات المطلوبة غير متاحة حالياً.')}
+        function contactWhatsApp(){window.open('https://wa.me/201092143626?text='+encodeURIComponent('السلام عليكم، أريد الاستفسار/الطلب من صيدلية خالد محمد رجب'),'_blank')}
+        function showOffers(){document.getElementById('offersContainer').innerHTML='<div class="dash-panel"><h3>WELCOME10</h3><p>خصم 10% على قيمة المنتجات.</p></div><div class="dash-panel"><h3>DELIVERYFREE</h3><p>توصيل مجاني على الطلب.</p></div>';document.getElementById('offersModal').style.display='flex'}
+        function adminDate(o){return o?.created_at ? new Date(o.created_at) : null}
+        function orderItems(o){
+            const raw=String(o?.product_name||'');
+            return raw.split(',').map(x=>{const m=x.trim().match(/^(.*?)\s*\(×(\d+)\)/);return m?{name:m[1].trim(),qty:Number(m[2])||1}:{name:x.trim(),qty:1}}).filter(x=>x.name)
+        }
+        function money(n){return Number(n||0).toLocaleString('ar-EG',{maximumFractionDigits:2})+' ج.م'}
+        function orderStatusClass(s){if(s==='تم التوصيل')return 'status-done';if(s==='جاري التوصيل')return 'status-delivery';if(s==='ملغي')return 'status-cancel';return 'status-new'}
+        function adminFilterOrders(orders){
+            const range=document.getElementById('dashRange')?.value||'30';
+            const status=document.getElementById('dashStatus')?.value||'all';
+            const search=(document.getElementById('dashSearch')?.value||'').trim().toLowerCase();
+            const now=new Date(); let from=null;
+            if(range!=='all'){from=new Date(now);from.setDate(from.getDate()-Number(range));from.setHours(0,0,0,0)}
+            return orders.filter(o=>{const d=adminDate(o);const okDate=!from||!d||d>=from;const okStatus=status==='all'||o.status===status;const hay=[o.order_number,o.client_name,o.client_phone,o.product_name,o.payment_method].join(' ').toLowerCase();return okDate&&okStatus&&(!search||hay.includes(search))})
+        }
+        function renderAdminDashboard(orders){
+            const all=orders||[], os=adminFilterOrders(all), valid=os.filter(o=>o.status!=='ملغي');
+            const revenue=valid.reduce((s,o)=>s+Number(o.product_price||0),0), avg=valid.length?revenue/valid.length:0;
+            const delivered=os.filter(o=>o.status==='تم التوصيل').length, cancel=os.filter(o=>o.status==='ملغي').length;
+            const customers=new Set(valid.map(o=>o.client_phone).filter(Boolean)).size;
+            const pending=os.filter(o=>o.status==='قيد المعالجة (بيتجهز)').length, shipping=os.filter(o=>o.status==='جاري التوصيل').length;
+            const itemMap={}, paymentMap={}, dayMap={};
+            valid.forEach(o=>{orderItems(o).forEach(it=>itemMap[it.name]=(itemMap[it.name]||0)+it.qty);const pay=o.payment_method||'غير محدد';paymentMap[pay]=(paymentMap[pay]||0)+Number(o.product_price||0);const d=adminDate(o);if(d){const key=d.toISOString().slice(0,10);dayMap[key]=(dayMap[key]||0)+Number(o.product_price||0)}});
+            const top=Object.entries(itemMap).sort((a,b)=>b[1]-a[1]).slice(0,8);
+            const payTop=Object.entries(paymentMap).sort((a,b)=>b[1]-a[1]);
+            const days=[];for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push({key:d.toISOString().slice(0,10),label:d.toLocaleDateString('ar-EG',{day:'numeric',month:'short'}),value:dayMap[d.toISOString().slice(0,10)]||0})}
+            const maxDay=Math.max(1,...days.map(x=>x.value));
+            const low=allMedicines.filter(m=>getStock(m)<=5 && getStock(m)>0), out=allMedicines.filter(m=>getStock(m)<=0), expired=allMedicines.filter(m=>isExpired(m)), soon=allMedicines.filter(m=>{const e=storeMeta.expiry[m.id];if(!e)return false;const dt=new Date(e+'T00:00:00'),diff=(dt-new Date())/86400000;return diff>=0&&diff<=30});
+            const stockValue=allMedicines.reduce((s,m)=>s+(Number(m.price)||0)*getStock(m),0);
+            const recent=os.slice(0,10);
+            const statusRows=[['قيد المعالجة (بيتجهز)',pending,'status-new'],['جاري التوصيل',shipping,'status-delivery'],['تم التوصيل',delivered,'status-done'],['ملغي',cancel,'status-cancel']];
+            const maxTop=Math.max(1,...top.map(x=>x[1]));
+            const donutColors=['var(--primary)','var(--accent)','#f59e0b','#ef4444'];
+            document.getElementById('dashboardContainer').innerHTML=`
+            <div class="admin-toolbar">
+              <div class="tool"><label>الفترة</label><select id="dashRange" onchange="refreshAdminDashboard()"><option value="7">آخر 7 أيام</option><option value="30" selected>آخر 30 يوم</option><option value="90">آخر 90 يوم</option><option value="all">كل الوقت</option></select></div>
+              <div class="tool"><label>حالة الطلب</label><select id="dashStatus" onchange="refreshAdminDashboard()"><option value="all">كل الحالات</option><option>قيد المعالجة (بيتجهز)</option><option>جاري التوصيل</option><option>تم التوصيل</option><option>ملغي</option></select></div>
+              <div class="tool" style="flex:1.5"><label>بحث في الطلبات</label><input id="dashSearch" oninput="refreshAdminDashboard()" placeholder="رقم الطلب / اسم العميل / الهاتف / المنتج"></div><div class="tool" style="flex:1.1"><label><i class="fa-solid fa-barcode"></i> كود المنتج للمخزون</label><input id="dashProductCode" oninput="refreshAdminDashboard()" inputmode="numeric" autocomplete="off" placeholder="اكتب الكود"></div>
+              <button onclick="loadAdminDashboard()"><i class="fa-solid fa-rotate"></i> تحديث</button>
+              <button class="secondary" onclick="exportOrdersCSV()"><i class="fa-solid fa-file-csv"></i> تصدير CSV</button>
+            </div>
+            <div class="kpi-grid">
+              <div class="kpi"><div class="icon"><i class="fa-solid fa-sack-dollar"></i></div><small>صافي المبيعات</small><div class="value">${money(revenue)}</div><div class="sub">من ${valid.length} طلب غير ملغي</div></div>
+              <div class="kpi"><div class="icon"><i class="fa-solid fa-receipt"></i></div><small>متوسط قيمة الطلب</small><div class="value">${money(avg)}</div><div class="sub">AOV خلال الفترة</div></div>
+              <div class="kpi"><div class="icon"><i class="fa-solid fa-users"></i></div><small>العملاء</small><div class="value">${customers}</div><div class="sub">عملاء بأرقام هاتف مختلفة</div></div>
+              <div class="kpi"><div class="icon"><i class="fa-solid fa-boxes-stacked"></i></div><small>قيمة المخزون</small><div class="value">${money(stockValue)}</div><div class="sub">حسب السعر الحالي والكمية</div></div>
+            </div>
+            <div class="dashboard-layout">
+              <div class="dash-panel"><h3><i class="fa-solid fa-chart-column"></i> المبيعات اليومية — آخر 14 يوم</h3><div class="admin-chart">${days.map(x=>`<div class="bar-col" title="${x.key}: ${money(x.value)}"><div class="bar-value">${x.value?Math.round(x.value):''}</div><div class="bar" style="height:${Math.max(2,x.value/maxDay*82)}%"></div><div class="bar-label">${x.label}</div></div>`).join('')}</div></div>
+              <div class="dash-panel"><h3><i class="fa-solid fa-chart-pie"></i> توزيع طرق الدفع</h3><div class="donut-wrap"><div class="donut" style="background:${(()=>{let total=Math.max(1,payTop.reduce((s,x)=>s+x[1],0)),a=0;return 'conic-gradient('+payTop.map((x,i)=>{let st=a/total*100;a+=x[1];return donutColors[i%4]+' '+st+'% '+(a/total*100)+'%'}).join(',')+')'})()}"></div><div class="legend">${payTop.length?payTop.map((x,i)=>`<div class="legend-row"><span><i class="dot" style="background:${donutColors[i%4]}"></i>${safeText(x[0])}</span><b>${money(x[1])}</b></div>`).join(''):'لا توجد بيانات'}</div></div></div>
+              <div class="dash-panel"><h3><i class="fa-solid fa-chart-simple"></i> حالة الطلبات</h3>${statusRows.map(x=>`<div class="legend-row"><span><span class="status-pill ${x[2]}">${safeText(x[0].replace(' (بيتجهز)',''))}</span></span><b>${x[1]}</b></div>`).join('')}<div style="margin-top:12px"><small>نسبة الإلغاء: ${os.length?(cancel/os.length*100).toFixed(1):0}%</small><div class="progress"><span style="width:${os.length?Math.min(100,cancel/os.length*100):0}%"></span></div></div></div>
+              <div class="dash-panel"><h3><i class="fa-solid fa-ranking-star"></i> الأكثر مبيعًا</h3>${top.length?top.map((x,i)=>`<div class="rank-row"><span class="rank-no">${i+1}</span><span>${safeText(x[0])}<div class="progress"><span style="width:${x[1]/maxTop*100}%"></span></div></span><b>${x[1]} قطعة</b></div>`).join(''):'لا توجد بيانات كافية'}</div>
+              <div class="dash-panel full"><h3><i class="fa-solid fa-triangle-exclamation"></i> مركز تنبيهات المخزون والصلاحية</h3><div class="alert-list">${out.length?out.map(m=>`<div class="alert-item danger"><span><b>${safeText(m.name)}</b><br><small>نفد المخزون</small></span><button class="btn-details" onclick="setInventory('${m.id}')">تعديل</button></div>`).join(''):''}${expired.map(m=>`<div class="alert-item danger"><span><b>${safeText(m.name)}</b><br><small>تاريخ الصلاحية منتهي: ${storeMeta.expiry[m.id]}</small></span><button class="btn-details" onclick="setInventory('${m.id}')">تعديل</button></div>`).join('')}${low.map(m=>`<div class="alert-item warn"><span><b>${safeText(m.name)}</b><br><small>مخزون منخفض: ${getStock(m)} وحدة</small></span><button class="btn-details" onclick="setInventory('${m.id}')">تعديل</button></div>`).join('')}${soon.map(m=>`<div class="alert-item warn"><span><b>${safeText(m.name)}</b><br><small>تنتهي خلال 30 يوم: ${storeMeta.expiry[m.id]}</small></span><button class="btn-details" onclick="setInventory('${m.id}')">تعديل</button></div>`).join('')}${!out.length&&!expired.length&&!low.length&&!soon.length?'<div class="empty-state">لا توجد تنبيهات حرجة حاليًا 🎉</div>':''}</div></div>
+              <div class="dash-panel full"><h3><i class="fa-solid fa-clock-rotate-left"></i> آخر الطلبات</h3><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>الطلب</th><th>العميل</th><th>التاريخ</th><th>المنتجات</th><th>الإجمالي</th><th>الدفع</th><th>الحالة</th></tr></thead><tbody>${recent.length?recent.map(o=>`<tr><td><b>${safeText(o.order_number||('#'+o.id))}</b></td><td>${safeText(o.client_name||'-')}<br><small>${safeText(o.client_phone||'')}</small></td><td>${adminDate(o)?adminDate(o).toLocaleString('ar-EG'): '-'}</td><td>${safeText(o.product_name||'-')}</td><td><b>${money(o.product_price)}</b></td><td>${safeText(o.payment_method||'-')}</td><td><span class="status-pill ${orderStatusClass(o.status)}">${safeText((o.status||'').replace(' (بيتجهز)',''))}</span></td></tr>`).join(''):'<tr><td colspan="7" style="text-align:center">لا توجد طلبات ضمن الفلتر.</td></tr>'}</tbody></table></div></div>
+              <div class="dash-panel full"><h3><i class="fa-solid fa-boxes-stacked"></i> المخزون والأدوية</h3><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>الكود</th><th>الدواء</th><th>السعر</th><th>المخزون</th><th>الصلاحية</th><th>الحالة</th><th>إجراء</th></tr></thead><tbody>${allMedicines.filter(m=>{const q=normalizeProductCode(document.getElementById('dashProductCode')?.value||'');return !q||normalizeProductCode(getProductCode(m)).includes(q)}).map(m=>{const st=getStock(m),ex=storeMeta.expiry[m.id]||'-';let label=st<=0?'نفد':isExpired(m)?'منتهي':st<=5?'منخفض':'متوفر';return `<tr><td><b style="color:var(--primary)">${safeText(getProductCode(m)||'-')}</b></td><td><b>${safeText(m.name)}</b></td><td>${money(m.price)}</td><td><input type="number" min="0" value="${st}" style="width:85px;padding:7px;border:1px solid var(--border-color);border-radius:8px;background:var(--bg-color);color:var(--text-main)" onchange="setInventoryDirect('${m.id}',this.value)"></td><td>${ex}</td><td><span class="status-pill ${st<=0||isExpired(m)?'status-cancel':st<=5?'status-delivery':'status-done'}">${label}</span></td><td style="display:flex;gap:6px;align-items:center">
+<button class="btn-details" onclick="openEditProduct('${m.id}')"><i class="fa-solid fa-pen"></i> تعديل</button>
+<button class="btn-details" style="background:#dc2626" onclick="deleteMedicine('${m.id}','${safeText(m.image_url||'')}')"><i class="fa-solid fa-trash"></i> حذف</button>
+</td></tr>`}).join('')||'<tr><td colspan="7" style="text-align:center;padding:20px">لا يوجد منتج بهذا الكود.</td></tr>'}</tbody></table></div></div>
+            </div>`;
+        }
+        async function loadAdminDashboard(){
+            const box=document.getElementById('dashboardContainer');box.innerHTML='<div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><br>جاري تحميل لوحة الإدارة...</div>';
+            const {data,error}=await _supabase.from('orders').select('*').order('id',{ascending:false});
+            if(error){box.innerHTML=`<div class="empty-state">تعذر تحميل البيانات: ${safeText(error.message)}</div>`;return}
+            window._adminOrders=data||[];renderAdminDashboard(window._adminOrders);
+        }
+        function refreshAdminDashboard(){if(window._adminOrders)renderAdminDashboard(window._adminOrders)}
+        async function openAdminDashboard(){if(prompt('أدخل كلمة المرور:')!==ADMIN_PASSWORD)return;document.getElementById('adminDashboardModal').style.display='flex';await loadAdminDashboard()}
+        function exportOrdersCSV(){
+            const os=adminFilterOrders(window._adminOrders||[]);if(!os.length)return alert('لا توجد بيانات لتصديرها.');
+            const rows=[['رقم الطلب','العميل','الهاتف','التاريخ','المنتجات','الإجمالي','الدفع','الحالة']];os.forEach(o=>rows.push([o.order_number||'',o.client_name||'',o.client_phone||'',adminDate(o)?.toLocaleString('ar-EG')||'',o.product_name||'',o.product_price||0,o.payment_method||'',o.status||'']));
+            const csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pharmacy-orders.csv';a.click();URL.revokeObjectURL(a.href);
+        }
+        function setInventoryDirect(id,value){ if(!/^\d+$/.test(String(value))){alert('أدخل عدد قطع صحيح.');return;} storeMeta.stock[id]=Number(value); saveMeta(); renderMedicines(allMedicines); refreshAdminDashboard(); }
+        function setInventory(id){const m=allMedicines.find(x=>String(x.id)===String(id));if(!m)return;const stock=prompt(`المخزون الحالي لـ ${m.name}:`,getStock(m));if(stock===null)return;const expiry=prompt('تاريخ الصلاحية (YYYY-MM-DD):',storeMeta.expiry[id]||'');if(!/^\d+$/.test(stock)){alert('أدخل رقم مخزون صحيح');return}storeMeta.stock[id]=Number(stock);if(expiry)storeMeta.expiry[id]=expiry;else delete storeMeta.expiry[id];saveMeta();renderMedicines(allMedicines);openAdminDashboard()}
+        // زر مخفي مفيد لإدارة المخزون: افتح لوحة الإدارة ثم يمكن استخدام console لاحقاً.
+        function exportLocalData(){const blob=new Blob([JSON.stringify(storeMeta,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pharmacy-local-data.json';a.click()}
+        window.addEventListener('beforeunload',saveMeta);
+        if(allMedicines.length) renderMedicines(allMedicines); else fetchMedicines();
+        // إعادة بناء السلة عند التحميل
+        try{cart=JSON.parse(localStorage.getItem('pharmacy_cart')||'[]')}catch(e){cart=[]}const _oldUpdate=updateCartUI;updateCartUI=function(){localStorage.setItem('pharmacy_cart',JSON.stringify(cart));_oldUpdate()};
+
+    
+        function scrollToMedicines(){document.getElementById('medicinesAnchor')?.scrollIntoView({behavior:'smooth'});}
+        function renderQuickSections(){
+          const pop=document.getElementById('popularContainer'), nw=document.getElementById('newContainer'); if(!pop||!nw)return;
+          const ranked=[...allMedicines].sort((a,b)=>Number(getStock(b))-Number(getStock(a))).slice(0,4); const latest=[...allMedicines].slice(-4).reverse();
+          const mini=(m)=>`<div class="mini-product" onclick='buyNow(${JSON.stringify(m)})'><img src="${m.image_url}" alt=""><div><b>${safeText(m.name)}</b><small>${m.price} ج.م</small></div></div>`;
+          pop.innerHTML=ranked.length?ranked.map(mini).join(''):'<div class="empty-state">لا توجد منتجات بعد</div>'; nw.innerHTML=latest.length?latest.map(mini).join(''):'<div class="empty-state">لا توجد منتجات بعد</div>';
+        }
+        function showPopular(){filterByCategory('all',document.querySelector('.cat-btn'));scrollToMedicines();}
+        function showNewArrivals(){scrollToMedicines();}
+        const _oldFetch=fetchMedicines; fetchMedicines=async function(){await _oldFetch();renderQuickSections();};
+        const _oldRender=renderMedicines; renderMedicines=function(ms){_oldRender(ms);renderQuickSections();};
+        const _oldAdd=addToCart; addToCart=function(med){_oldAdd(med);const card=document.querySelector('.medicine-card');if(card){card.animate([{transform:'scale(1)'},{transform:'scale(1.03)'},{transform:'scale(1)'}],{duration:260});}};
+        function setupOrderEnhancements(){
+          const checkout=document.getElementById('cartCheckoutForm'); if(!checkout)return;
+          if(!document.getElementById('orderNotes')){const d=document.createElement('div');d.className='form-group';d.innerHTML='<label>ملاحظات الطلب</label><textarea id="orderNotes" rows="2" placeholder="مثال: اتصل بي قبل التوصيل"></textarea>';checkout.insertBefore(d,checkout.lastElementChild);}
+        }
+        setupOrderEnhancements();
+        const _oldOpenCart=openCartModal; openCartModal=function(){_oldOpenCart();setupOrderEnhancements();};
+        window.addEventListener('load',()=>setTimeout(renderQuickSections,300));
+
+        /* ===== إضافات المتجر المتقدمة ===== */
+        storeMeta.coupons = storeMeta.coupons || {
+            WELCOME10:{type:'percent',value:10,min:0,expires:''},
+            DELIVERYFREE:{type:'delivery',value:0,min:0,expires:''}
+        };
+        storeMeta.lastInvoice = storeMeta.lastInvoice || null;
+        saveMeta();
+
+        function callPharmacy(){ window.location.href='tel:01092143626'; }
+        function activeCoupon(){ const c=(storeMeta.coupon||'').toUpperCase(); return storeMeta.coupons[c] ? {code:c,...storeMeta.coupons[c]} : null; }
+        function couponIsValid(c, subtotal){ if(!c)return false; if(Number(c.min||0)>subtotal)return false; if(c.expires && new Date(c.expires+'T23:59:59')<new Date())return false; return true; }
+        function applyCoupon(){
+            const input=document.getElementById('couponInput'), r=document.getElementById('couponResult'); const code=(input?.value||'').trim().toUpperCase();
+            const c=storeMeta.coupons[code]; const subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0);
+            if(c && couponIsValid(c,subtotal)){ storeMeta.coupon=code; saveMeta(); r.textContent=c.type==='percent'?`✅ خصم ${c.value}% تم تطبيقه`:'✅ التوصيل مجاناً تم تطبيقه'; r.style.color='var(--accent)'; }
+            else { storeMeta.coupon=''; saveMeta(); r.textContent='❌ الكوبون غير صالح أو لم يصل للحد الأدنى'; r.style.color='#dc2626'; }
+            recalculateCart();
+        }
+        function deliveryFee(){ const a=document.getElementById('cArea')?.value||'داخل المدينة'; const c=activeCoupon(); return c?.type==='delivery'?0:(a==='قرية / ضواحي'?20:a==='خارج النطاق'?35:10); }
+        function recalculateCart(){
+            const subtotal=cart.reduce((s,i)=>s+i.price*i.qty,0), c=activeCoupon();
+            const valid=couponIsValid(c,subtotal); const discount=valid&&c.type==='percent'?subtotal*(Number(c.value)/100):0; const fee=cart.length?(valid&&c.type==='delivery'?0:deliveryFee()):0; const total=Math.max(0,subtotal-discount+fee);
+            const t=document.getElementById('cartTotalText'), n=document.getElementById('deliveryNote');
+            if(t)t.textContent=`الإجمالي النهائي: ${total.toFixed(2)} ج.م`;
+            if(n){ let msg=`المنتجات: ${subtotal.toFixed(2)} ج.م | الخصم: ${discount.toFixed(2)} ج.م | التوصيل: ${fee.toFixed(2)} ج.م`; if(subtotal>0&&subtotal<200&&fee>0)msg+=` — متبقي ${(200-subtotal).toFixed(2)} ج.م للحصول على توصيل مجاني*`; n.innerHTML=msg+'<br><small>* العرض المجاني يعتمد على الكوبونات/إعدادات الصيدلية.</small>'; }
+            return {subtotal,discount,fee,total};
+        }
+        function openProductDetails(med){
+            const modal=document.getElementById('detailsModal'), body=modal.querySelector('.modal-content'); const stock=getStock(med), fav=isFavorite(med.id), old=(med.old_price && Number(med.old_price)!==Number(med.price))?`<span class="detail-old">${med.old_price} ج.م</span>`:'';
+            const related=allMedicines.filter(x=>String(x.id)!==String(med.id)&&x.category===med.category).slice(0,3);
+            body.innerHTML=`<button class="modal-close" onclick="closeModal('detailsModal')"><i class="fa-solid fa-xmark"></i></button>
+            <div class="product-detail-grid"><img class="product-detail-img" src="${safeText(med.image_url)}" alt="${safeText(med.name)}"><div><h2 style="margin-top:0">${safeText(med.name)}</h2><div><span class="detail-price">${med.price} ج.م</span>${old}</div><div class="detail-meta"><span class="detail-chip"><i class="fa-solid fa-barcode"></i> الكود: ${safeText(getProductCode(med)||'بدون كود')}</span><span class="detail-chip"><i class="fa-solid fa-layer-group"></i> ${safeText(med.category||'منتجات')}</span><span class="detail-chip"><i class="fa-solid fa-box"></i> ${stock>0?'متوفر '+stock:'غير متوفر'}</span></div><p style="color:var(--text-muted);line-height:1.9">${safeText(med.description||'لا يوجد وصف إضافي.')}</p><div class="detail-qty"><button onclick="changeDetailQty(-1)">−</button><span id="detailQty">1</span><button onclick="changeDetailQty(1)">+</button><small>الحد الأقصى ${stock}</small></div><div class="card-actions"><button class="btn-buy" onclick="addDetailToCart('${med.id}')" ${stock<=0?'disabled':''}><i class="fa-solid fa-cart-plus"></i> أضف للسلة</button><button class="btn-details" onclick="buyDetailNow('${med.id}')" ${stock<=0?'disabled':''}><i class="fa-solid fa-bolt"></i> اشترِ الآن</button><button class="btn-details" onclick="toggleFavorite('${med.id}');openProductDetails(findMed('${med.id}'))"><i class="fa-${fav?'solid':'regular'} fa-heart"></i> ${fav?'إزالة من المفضلة':'إضافة للمفضلة'}</button></div></div></div>${related.length?`<div style="margin-top:20px"><h3>منتجات مشابهة</h3><div class="related-grid">${related.map(x=>`<div class="related-card" onclick="openProductDetails(findMed('${x.id}'))"><img src="${safeText(x.image_url)}"><b>${safeText(x.name)}</b><small>${x.price} ج.م</small></div>`).join('')}</div></div>`:''}`;
+            modal.style.display='flex';
+        }
+        function findMed(id){return allMedicines.find(x=>String(x.id)===String(id));}
+        function changeDetailQty(d){const m=document.getElementById('detailQty');if(!m)return;const med=window._detailMed;const max=getStock(med);m.textContent=Math.max(1,Math.min(max,Number(m.textContent)+d));}
+        function addDetailToCart(id){const med=findMed(id);if(!med)return;const q=Number(document.getElementById('detailQty')?.textContent||1);for(let i=0;i<q;i++)addToCart(med);closeModal('detailsModal');}
+        function buyDetailNow(id){const med=findMed(id);if(!med)return;const q=Number(document.getElementById('detailQty')?.textContent||1);cart=[];cart.push({...med,qty:q});updateCartUI();closeModal('detailsModal');openCartModal();}
+        const _oldDetails=openDetailsModal;
+        openDetailsModal=function(name,price,desc,img){ const med=allMedicines.find(m=>String(m.name)===String(name)) || {id:'',name,price,description:desc,image_url:img,category:'',old_price:null}; window._detailMed=med; openProductDetails(med); };
+        const _oldOpenProductDetails=openProductDetails;
+        openProductDetails=function(med){ window._detailMed=med; _oldOpenProductDetails(med); };
+
+        function renderQuickSections(){
+            const pop=document.getElementById('popularContainer'), nw=document.getElementById('newContainer'); if(!pop||!nw)return;
+            const counts={}; (storeMeta.history||[]).forEach(h=>(h.cart||[]).forEach(i=>counts[i.id]=(counts[i.id]||0)+Number(i.qty||0)));
+            const ranked=[...allMedicines].sort((a,b)=>(counts[b.id]||0)-(counts[a.id]||0)).slice(0,4); const latest=[...allMedicines].slice(0,4);
+            const mini=(m)=>`<div class="mini-product" onclick='openDetailsModal(${JSON.stringify(m.name)},${JSON.stringify(m.price)},${JSON.stringify(m.description||'')},${JSON.stringify(m.image_url)})'><img src="${safeText(m.image_url)}" alt=""><div><b>${safeText(m.name)}</b><small>${m.price} ج.م</small></div></div>`;
+            pop.innerHTML=ranked.length?ranked.map(mini).join(''):'<div class="empty-state">لا توجد منتجات بعد</div>'; nw.innerHTML=latest.length?latest.map(mini).join(''):'<div class="empty-state">لا توجد منتجات بعد</div>';
+        }
+
+        async function submitCartOrder(e){
+            e.preventDefault(); if(!cart.length)return; const name=document.getElementById('cName').value.trim(),phone=document.getElementById('cPhone').value.trim(),address=document.getElementById('cAddress').value.trim(),payment=document.getElementById('cPayment').value,area=document.getElementById('cArea').value,notes=document.getElementById('orderNotes')?.value.trim()||''; const calc=recalculateCart(); const orderNum=await generateNumericOrderNumber(); const summary=cart.map(i=>`${i.name} (×${i.qty})`).join(', '); const fullAddress=`${address} - ${area}${notes?' — ملاحظات: '+notes:''}`;
+            const {error}=await _supabase.from('orders').insert([{order_number:orderNum,product_name:summary,product_price:calc.total,client_name:name,client_phone:phone,client_address:fullAddress,payment_method:payment,status:'قيد المعالجة (بيتجهز)'}]);
+            if(error){alert('خطأ في إرسال الطلب: '+error.message);return}
+            cart.forEach(i=>storeMeta.stock[i.id]=Math.max(0,getStock(i)-i.qty));
+            storeMeta.history.unshift({order_number:orderNum,phone,total:calc.total,date:new Date().toISOString(),items:summary,cart:cart.map(i=>({id:i.id,qty:i.qty}))}); storeMeta.history=storeMeta.history.slice(0,50); storeMeta.lastInvoice={order_number:orderNum,name,phone,address:fullAddress,payment,summary,...calc,date:new Date().toISOString()}; storeMeta.coupon=''; saveMeta(); cart=[];updateCartUI();document.getElementById('couponInput').value='';closeModal('cartModal');showOrderSuccess(storeMeta.lastInvoice);
+        }
+        function showOrderSuccess(o){document.getElementById('successOrderText').innerHTML=`رقم طلبك: <strong style="font-size:24px;color:var(--primary)">${safeText(o.order_number)}</strong><br><small>احتفظ بالرقم ورقم هاتفك لتتبع الطلب.</small>`;document.getElementById('successOrderSummary').innerHTML=`<b>ملخص الطلب</b><br>${safeText(o.summary)}<hr><div>المنتجات: ${o.subtotal.toFixed(2)} ج.م</div><div>الخصم: ${o.discount.toFixed(2)} ج.م</div><div>التوصيل: ${o.fee.toFixed(2)} ج.م</div><div style="font-size:18px;margin-top:6px"><b>الإجمالي: ${o.total.toFixed(2)} ج.م</b></div>`;document.getElementById('orderSuccessModal').style.display='flex';}
+        function printLastInvoice(){
+            const o=storeMeta.lastInvoice;
+            if(!o)return;
+            const w=window.open('','_blank','width=700,height=800');
+            if(!w){alert('اسمح للنوافذ المنبثقة من الموقع ثم حاول مرة أخرى.');return;}
+            const html=`<html dir="rtl"><head><title>فاتورة ${safeText(o.order_number)}</title><style>body{font-family:Tahoma,Arial;padding:30px;direction:rtl}h1{text-align:center}.line{border-bottom:1px solid #ddd;padding:8px 0}.total{font-size:20px;font-weight:bold}</style></head><body><h1>صيدلية خالد محمد رجب</h1><div class="line"><b>رقم الطلب:</b> ${safeText(o.order_number)}</div><div class="line"><b>العميل:</b> ${safeText(o.name)}</div><div class="line"><b>الهاتف:</b> ${safeText(o.phone)}</div><div class="line"><b>العنوان:</b> ${safeText(o.address)}</div><div class="line"><b>المنتجات:</b> ${safeText(o.summary)}</div><div class="line">المنتجات: ${Number(o.subtotal||0).toFixed(2)} ج.م</div><div class="line">الخصم: ${Number(o.discount||0).toFixed(2)} ج.م</div><div class="line">التوصيل: ${Number(o.fee||0).toFixed(2)} ج.م</div><p class="total">الإجمالي: ${Number(o.total||0).toFixed(2)} ج.م</p><p>شكراً لثقتكم بنا ❤️</p></body></html>`;
+            w.document.open();
+            w.document.write(html);
+            w.document.close();
+            setTimeout(()=>w.print(),300);
+        }
+
+        // تشغيل خصائص PWA بدون إدخال <script> داخل كود الفاتورة
+        (function(){
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function(){
+                    navigator.serviceWorker.register('./sw.js').catch(function(e){
+                        console.warn('PWA service worker:', e);
+                    });
+                });
+            }
+
+            let deferredPrompt=null;
+            const btn=document.createElement('button');
+            btn.id='pwaInstallBtn';
+            btn.type='button';
+            btn.innerHTML='<i class="fa-solid fa-mobile-screen-button"></i> تثبيت التطبيق';
+            document.body.appendChild(btn);
+
+            const style=document.createElement('style');
+            style.textContent='#pwaInstallBtn{position:fixed;bottom:18px;left:18px;z-index:9999;display:none;border:0;border-radius:999px;padding:12px 18px;background:#0d6efd;color:#fff;font-family:inherit;font-weight:800;box-shadow:0 8px 24px rgba(0,0,0,.2);cursor:pointer}#pwaInstallBtn.show{display:flex;align-items:center;gap:8px;animation:pwaPop .35s ease}@keyframes pwaPop{from{transform:translateY(15px);opacity:0}to{transform:translateY(0);opacity:1}}@media(max-width:600px){#pwaInstallBtn{left:12px;right:12px;justify-content:center;bottom:12px}}';
+            document.head.appendChild(style);
+
+            window.addEventListener('beforeinstallprompt', function(e){
+                e.preventDefault();
+                deferredPrompt=e;
+                btn.classList.add('show');
+            });
+
+            btn.addEventListener('click', async function(){
+                if(!deferredPrompt)return;
+                deferredPrompt.prompt();
+                try{await deferredPrompt.userChoice;}catch(e){}
+                deferredPrompt=null;
+                btn.classList.remove('show');
+            });
+
+            window.addEventListener('appinstalled', function(){
+                btn.classList.remove('show');
+            });
+        })();
+
+        function renderCouponAdmin(){
+            const box=document.getElementById('couponAdminPanel');if(!box)return; const entries=Object.entries(storeMeta.coupons||{});
+            box.innerHTML=`<h3><i class="fa-solid fa-ticket"></i> إدارة الكوبونات</h3><div class="coupon-admin-row"><div><label>الكود</label><input id="newCouponCode" placeholder="SUMMER10"></div><div><label>النوع</label><select id="newCouponType" style="width:100%;padding:9px;border:1px solid var(--border-color);border-radius:9px;background:var(--card-bg);color:var(--text-main)"><option value="percent">خصم %</option><option value="delivery">توصيل مجاني</option></select></div><div><label>القيمة %</label><input id="newCouponValue" type="number" min="1" value="10"></div><div><label>الحد الأدنى</label><input id="newCouponMin" type="number" min="0" value="0"></div><div><label>ينتهي</label><input id="newCouponExpiry" type="date"></div><button class="btn-details" onclick="addAdminCoupon()">إضافة</button></div><div class="mini-list">${entries.map(([code,c])=>`<div class="mini-row"><span><b>${safeText(code)}</b><br><small>${c.type==='percent'?`خصم ${c.value}%`:'توصيل مجاني'}${c.min?' — حد أدنى '+c.min+' ج.م':''}${c.expires?' — حتى '+c.expires:''}</small></span><button class="btn-details" onclick="deleteAdminCoupon('${safeText(code)}')">حذف</button></div>`).join('')}</div>`;
+        }
+        function addAdminCoupon(){const code=document.getElementById('newCouponCode').value.trim().toUpperCase();if(!/^[A-Z0-9_-]{3,20}$/.test(code))return alert('اكتب كودًا من حروف/أرقام فقط.');storeMeta.coupons[code]={type:document.getElementById('newCouponType').value,value:Number(document.getElementById('newCouponValue').value)||0,min:Number(document.getElementById('newCouponMin').value)||0,expires:document.getElementById('newCouponExpiry').value||''};saveMeta();renderCouponAdmin();showOffers();}
+        function deleteAdminCoupon(code){delete storeMeta.coupons[code];if(storeMeta.coupon===code)storeMeta.coupon='';saveMeta();renderCouponAdmin();}
+        function showOffers(){const entries=Object.entries(storeMeta.coupons||{});document.getElementById('offersContainer').innerHTML=entries.map(([code,c])=>`<div class="dash-panel"><h3>${safeText(code)}</h3><p>${c.type==='percent'?`خصم ${c.value}%`:'توصيل مجاني'}${c.min?` — حد أدنى ${c.min} ج.م`:''}${c.expires?` — حتى ${c.expires}`:''}</p><button class="btn-buy" onclick="openCartModal();setTimeout(()=>{document.getElementById('couponInput').value='${safeText(code)}';applyCoupon()},150)">استخدم العرض</button></div>`).join('')||'<div class="empty-state">لا توجد عروض حالياً.</div>';document.getElementById('offersModal').style.display='flex';}
+        const _oldRenderAdmin=renderAdminDashboard;
+        renderAdminDashboard=function(os){_oldRenderAdmin(os);let d=document.getElementById('dashboardContainer');if(d&&!document.getElementById('couponAdminPanel')){const panel=document.createElement('div');panel.className='dash-panel full';panel.id='couponAdminPanel';d.querySelector('.dashboard-layout')?.appendChild(panel);}renderCouponAdmin();};
+        function printOrderById(id){const o=(window._adminOrders||[]).find(x=>String(x.id)===String(id));if(!o)return;const w=window.open('','_blank','width=700,height=800');w.document.write(`<html dir="rtl"><head><title>طلب ${o.order_number}</title></head><body style="font-family:Tahoma;padding:30px"><h1>صيدلية خالد محمد رجب</h1><h2>طلب رقم ${safeText(o.order_number)}</h2><p>العميل: ${safeText(o.client_name||'')}</p><p>الهاتف: ${safeText(o.client_phone||'')}</p><p>العنوان: ${safeText(o.client_address||'')}</p><p>المنتجات: ${safeText(o.product_name||'')}</p><h2>الإجمالي: ${o.product_price||0} ج.م</h2><script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close();}
+        const _oldCheckOrders=checkAdminForOrders;
+        checkAdminForOrders=function(){if(prompt("أدخل كلمة المرور:")!==ADMIN_PASSWORD)return;fetchOrders();document.getElementById('ordersModal').style.display='flex';};
+        // إضافة زر طباعة للوحة الطلبات القديمة بعد تحميلها
+        const _oldFetchOrders=fetchOrders;
+        fetchOrders=async function(){await _oldFetchOrders();document.querySelectorAll('#ordersContainer .custom-order-card').forEach((el,i)=>{const btn=el.querySelector('.order-status-select');if(btn&&!el.querySelector('.print-order-btn')){const id=btn.getAttribute('onchange')?.match(/updateOrderStatus\('(.*?)'/)?.[1];if(id){const b=document.createElement('button');b.className='btn-details print-order-btn';b.innerHTML='<i class="fa-solid fa-print"></i> طباعة';b.onclick=()=>printOrderById(id);el.querySelector('.order-card-header')?.appendChild(b);}}});};
+        // تحسين تفاصيل المنتج القديمة لتكون تفاعلية
+        document.getElementById('searchInput')?.setAttribute('placeholder','ابحث عن اسم الدواء أو الكود أو الوصف...');
+
+        storeMeta.recentViewed = storeMeta.recentViewed || [];
+        storeMeta.restockAlerts = storeMeta.restockAlerts || [];
+        saveMeta();
+        function rememberViewed(med){ if(!med?.id)return; storeMeta.recentViewed=[String(med.id),...storeMeta.recentViewed.map(String).filter(x=>String(x)!==String(med.id))].slice(0,6); saveMeta(); renderRecentViewed(); }
+        function renderRecentViewed(){const sec=document.getElementById('recentSection'),box=document.getElementById('recentContainer');if(!sec||!box)return;const meds=storeMeta.recentViewed.map(id=>findMed(id)).filter(Boolean);sec.style.display=meds.length?'block':'none';box.innerHTML=meds.map(m=>`<div class="mini-product" onclick='openDetailsModal(${JSON.stringify(m.name)},${JSON.stringify(m.price)},${JSON.stringify(m.description||'')},${JSON.stringify(m.image_url)})'><img src="${safeText(m.image_url)}"><div><b>${safeText(m.name)}</b><small>${m.price} ج.م</small></div></div>`).join('');}
+        function clearRecentViewed(){storeMeta.recentViewed=[];saveMeta();renderRecentViewed();}
+        function requestRestock(id){const med=findMed(id);if(!med)return;const phone=prompt('اكتب رقم موبايلك ليتم تذكيرك على هذا الجهاز:',storeMeta.restockAlerts.find(x=>x.id==id)?.phone||'');if(phone===null)return;if(!phone.trim())return alert('اكتب رقم الموبايل.');storeMeta.restockAlerts=storeMeta.restockAlerts.filter(x=>x.id!=id);storeMeta.restockAlerts.push({id:String(id),phone:phone.trim(),date:new Date().toISOString()});saveMeta();alert('🔔 تم تسجيل طلب التنبيه. عندما يعود المنتج للمخزون سيظهر لك تنبيه على هذا الجهاز.');}
+        function checkRestockAlerts(){const ready=(storeMeta.restockAlerts||[]).filter(a=>{const m=findMed(a.id);return m&&getStock(m)>0&&!isExpired(m)});if(ready.length){alert('🔔 منتج عاد للمخزون: '+ready.map(a=>findMed(a.id)?.name).filter(Boolean).join('، '));storeMeta.restockAlerts=(storeMeta.restockAlerts||[]).filter(a=>!ready.includes(a));saveMeta();}}
+        const _prevOpenProductDetails2=openProductDetails;
+        openProductDetails=function(med){rememberViewed(med);_prevOpenProductDetails2(med);};
+        const _prevOpenCartModal2=openCartModal;
+        openCartModal=function(){_prevOpenCartModal2();document.querySelector('#cartModal .modal-content')?.classList.add('cart-drawer');};
+        window.addEventListener('load',()=>{setTimeout(()=>{renderRecentViewed();checkRestockAlerts();},500);});
+</script>
 </body>
 </html>
