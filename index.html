@@ -971,7 +971,7 @@
             renderMedicines(allMedicines);
         }
 
-        function getProductCode(m) { return String(m?.code || storeMeta.codes?.[m?.id] || '').trim(); }
+        function getProductCode(m) { return String(m?.code || m?.product_code || storeMeta?.codes?.[m?.id] || '').trim(); }
         function normalizeProductCode(code) { return String(code || '').trim().toLowerCase(); }
         function codeExists(code, exceptId) { const c=normalizeProductCode(code); return !!c && allMedicines.some(m=>String(m.id)!==String(exceptId||'') && normalizeProductCode(getProductCode(m))===c); }
 
@@ -1367,13 +1367,13 @@ async function submitCartOrder(e) {
                     old_price: oldPrice ? parseFloat(oldPrice) : null, 
                     description: desc, 
                     image_url: pub.publicUrl
-                }]);
+                }]).select('id');
 
                 if (insertError) {
                     alert("خطأ في حفظ الدواء في القاعدة: " + insertError.message);
                     return;
                 }
-                if(insertData?.[0]?.id){ storeMeta.codes[insertData[0].id]=code; insertData[0].code=code; saveMeta(); }
+                if(insertData?.[0]?.id){ const newId=insertData[0].id; storeMeta.codes[newId]=code; saveMeta(); } else { throw new Error('تم حفظ المنتج لكن تعذر الحصول على رقم المنتج لحفظ الكود. أعد المحاولة.'); }
 
                 closeModal('addMedicineModal');
                 this.reset();
@@ -1387,9 +1387,6 @@ async function submitCartOrder(e) {
             }
         });
 
-        // تشغيل الجلب عند فتح الصفحة
-        fetchMedicines();
-
         /* ===== وظائف النسخة الاحترافية ===== */
         const STORE_KEY='khaled_pharmacy_v2';
         let storeMeta=JSON.parse(localStorage.getItem(STORE_KEY)||'{}');
@@ -1397,6 +1394,8 @@ async function submitCartOrder(e) {
         function saveMeta(){localStorage.setItem(STORE_KEY,JSON.stringify(storeMeta));}
         function getStock(m){return storeMeta.stock[m.id] ?? 20}
         function isExpired(m){let d=storeMeta.expiry[m.id]; return d && new Date(d)<new Date()}
+        // تحميل المنتجات بعد تجهيز بيانات الأكواد المحلية
+        fetchMedicines();
         function toggleFavorite(id){id=String(id); if(storeMeta.favorites.includes(id)) storeMeta.favorites=storeMeta.favorites.filter(x=>x!==id); else storeMeta.favorites.push(id); saveMeta(); filterMedicines();}
         function isFavorite(id){return storeMeta.favorites.includes(String(id))}
         function safeText(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
