@@ -966,10 +966,12 @@
             const { data, error } = await _supabase.from('medicines').select('*').order('id', { ascending: false });
             if (error) { console.error(error); return; }
             allMedicines = data || [];
+            // مزامنة كود المنتج المحفوظ مع بيانات المنتج حتى يظهر في المتجر ولو تم تحميل المنتجات من جديد
+            allMedicines.forEach(m => { if (storeMeta?.codes?.[m.id]) m.code = String(storeMeta.codes[m.id]).trim(); });
             renderMedicines(allMedicines);
         }
 
-        function getProductCode(m) { return String(storeMeta.codes?.[m.id] || m.code || '').trim(); }
+        function getProductCode(m) { return String(m?.code || storeMeta.codes?.[m?.id] || '').trim(); }
         function normalizeProductCode(code) { return String(code || '').trim().toLowerCase(); }
         function codeExists(code, exceptId) { const c=normalizeProductCode(code); return !!c && allMedicines.some(m=>String(m.id)!==String(exceptId||'') && normalizeProductCode(getProductCode(m))===c); }
 
@@ -1293,6 +1295,7 @@ async function submitCartOrder(e) {
                 if(error)throw error;
 
                 storeMeta.codes[id]=code;
+                if (m) m.code=code;
                 storeMeta.stock[id]=stock;
                 saveMeta();
                 closeModal('editProductModal');
@@ -1370,7 +1373,7 @@ async function submitCartOrder(e) {
                     alert("خطأ في حفظ الدواء في القاعدة: " + insertError.message);
                     return;
                 }
-                if(insertData?.[0]?.id){ storeMeta.codes[insertData[0].id]=code; saveMeta(); }
+                if(insertData?.[0]?.id){ storeMeta.codes[insertData[0].id]=code; insertData[0].code=code; saveMeta(); }
 
                 closeModal('addMedicineModal');
                 this.reset();
